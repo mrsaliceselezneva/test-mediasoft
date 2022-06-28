@@ -1,0 +1,45 @@
+
+.main-header {
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 2px 1px #343534;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    z-index: 9999;
+    position: absolute;
+    min-height: 60px;
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+@mixin shadow-size($property) {
+    width: $property;
+    height: $property;
+}
+
+%shadow {
+    display: block;
+    position: absolute;
+    @include transform(translateX(-50%));
+    left: 50%;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.logo {
+    @extend %shadow;
+    @include shadow-size(120px);
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 0.1px #343534;
+    top: -10px;
+}
+.logo-shadow {
+    @extend %shadow;
+    @include shadow-size(85px);
+    top: 20px;
+}
