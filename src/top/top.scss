@@ -1,4 +1,15 @@
 
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+@mixin shadow-size($property) {
+    width: $property;
+    height: $property;
+}
+
 .main-header {
     background: #fff;
     width: 100%;
@@ -8,12 +19,6 @@
     z-index: 9999;
     position: absolute;
     min-height: 60px;
-}
-
-@mixin transform($property) {
-    -webkit-transform: $property;
-    -ms-transform: $property;
-    transform: $property;
 }
 
 .search-city {
@@ -27,11 +32,6 @@
     @include transform(translateZ(0));
     margin: 0.85em 1.25em;
     border: 0;
-}
-
-@mixin shadow-size($property) {
-    width: $property;
-    height: $property;
 }
 
 %shadow {
