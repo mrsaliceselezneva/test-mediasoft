@@ -1,0 +1,71 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #fffff0;
+    height: 40px;
+    width: 400px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    .search-input {
+        border: none;
+        background: none;
+        color: #a6acbe;
+        @include text(200, 20px, 20px, #a6acbe);
+    }
+
+    .search-input:focus {
+        outline: none !important;
+        border: none;
+    }
+
+    input[type='search']::-webkit-search-cancel-button {
+        display: none;
+    }
+
+    .background-fisearch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-right: -16px;
+        margin-left: auto;
+
+        border-radius: 20px;
+
+        height: 40px;
+        width: 40px;
+
+        .fisearch {
+            color: #316650;
+            width: 23px;
+            height: 23px;
+            cursor: pointer;
+        }
+    }
+
+    .background-fisearch:hover {
+        background-color: #3f3820;
+
+        .fisearch {
+            color: #fffff0;
+        }
+    }
+}
+
+.search:hover {
+    input[type='search'] {
+        color: #316650;
+    }
+}
