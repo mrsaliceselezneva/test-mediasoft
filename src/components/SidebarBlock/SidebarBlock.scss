@@ -1,0 +1,24 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.game-type {
+    display: flex;
+    align-items: center;
+    border-radius: 18px;
+    height: 50px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #316650;
+    @include text(200, 18px, 16px, #316650);
+}
+
+.game-type:hover {
+    color: #c5e080;
+    background-color: #316650;
+}

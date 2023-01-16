@@ -1,12 +1,24 @@
-.cart-logo {
-    height: 35px;
-    width: 35px;
-    color: #fffff0;
-    margin-right: 0;
-    margin-left: auto;
-    cursor: pointer;
+.background-cart-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+
+    .cart-logo {
+        height: 35px;
+        width: 35px;
+        color: #fffff0;
+        cursor: pointer;
+    }
 }
 
-.cart-logo:hover {
-    color: #3f3820;
+.background-cart-logo:hover {
+    background-color: #fffff0;
+
+    .cart-logo {
+        color: #316650;
+    }
 }

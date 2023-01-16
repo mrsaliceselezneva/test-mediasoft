@@ -7,7 +7,9 @@ import CartLogo from '../CartLogo/CartLogo';
 function Header() {
     return (
         <div className="header">
-            <img className="logo" src={logo} alt={'logo'} />
+            <a href="/">
+                <img className="logo" src={logo} alt={'logo'} />
+            </a>
             <Search />
             <CartLogo />
         </div>
