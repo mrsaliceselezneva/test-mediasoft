@@ -1,4 +1,4 @@
-.background-cart-logo {
+.background_cart_logo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
     width: 50px;
     border-radius: 12px;
 
-    .cart-logo {
+    .cart_logo {
         height: 35px;
         width: 35px;
         color: #fffff0;
@@ -15,10 +15,10 @@
     }
 }
 
-.background-cart-logo:hover {
+.background_cart_logo:hover {
     background-color: #fffff0;
 
-    .cart-logo {
+    .cart_logo {
         color: #316650;
     }
 }

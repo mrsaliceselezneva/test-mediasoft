@@ -1,4 +1,4 @@
-import './Sort.scss';
+import styles from './Sort.module.scss';
 
 import React, { useState } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
@@ -15,18 +15,18 @@ function Sort() {
     ];
 
     return (
-        <div className="sort">
+        <div className={styles.sort}>
             Сортировать по:
-            <div onClick={() => setShowPopup(!showPoopup)} className="sort__now">
+            <div onClick={() => setShowPopup(!showPoopup)} className={styles.sort__now}>
                 {selectSort}
                 {showPoopup ? (
-                    <FiChevronUp className="sort__now__fichevron" />
+                    <FiChevronUp className={styles.sort__now__fichevron} />
                 ) : (
-                    <FiChevronDown className="sort__now__fichevron" />
+                    <FiChevronDown className={styles.sort__now__fichevron} />
                 )}
             </div>
             {showPoopup && (
-                <ul className="sort__popup">
+                <ul className={styles.sort__popup}>
                     {filterList.map((element, id) => (
                         <li
                             key={element}
@@ -34,7 +34,7 @@ function Sort() {
                                 setShowPopup(!showPoopup);
                                 setSelectSort(element);
                             }}
-                            className="sort__popup__element">
+                            className={styles.sort__popup__element}>
                             {element}
                         </li>
                     ))}

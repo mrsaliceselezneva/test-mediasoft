@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './Sidebar.scss';
+import styles from './Sidebar.module.scss';
 import SidebarBlock from '../SidebarBlock/SidebarBlock';
 
 const sidebarList = ['Все', 'Карточные', 'Для компании', 'Для двоих'];
@@ -9,7 +9,7 @@ function Sidebar() {
     const [selectGameType, setSelectGameType] = useState(0);
 
     return (
-        <div className="sidebar">
+        <div className={styles.sidebar}>
             {sidebarList.map((element, id) => (
                 <SidebarBlock
                     key={element}

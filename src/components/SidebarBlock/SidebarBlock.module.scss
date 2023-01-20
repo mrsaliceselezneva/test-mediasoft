@@ -7,7 +7,7 @@
     color: $c;
 }
 
-@mixin sidebar-block($text-color) {
+@mixin sidebar_block($text-color) {
     display: flex;
     align-items: center;
     border-radius: 18px;
@@ -18,20 +18,20 @@
     @include text(500, 18px, 16px, $text-color);
 }
 
-.select-game-type {
-    @include sidebar-block(#c5e080);
+.select_game_type {
+    @include sidebar_block(#c5e080);
     background-color: #316650;
 }
 
-.select-game-type:hover {
+.select_game_type:hover {
     color: #316650;
     background-color: rgba(49, 102, 80, 0.3);
 }
 
-.game-type {
+.game_type {
     @include sidebar-block(#316650);
 }
 
-.game-type:hover {
+.game_type:hover {
     background-color: rgba(49, 102, 80, 0.3);
 }

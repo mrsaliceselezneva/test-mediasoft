@@ -1,13 +1,13 @@
-import './Header.scss';
+import styles from './Header.module.scss';
 
 import Search from '../Search/Search';
 import CartLogo from '../CartLogo/CartLogo';
 
 function Header() {
     return (
-        <div className="header">
-            <a className="header__logo" href="/">
-                <img className="header__logo__img" src="img/dragon.png" alt="logo" />
+        <div className={styles.header}>
+            <a className={styles.header__logo} href="/">
+                <img className={styles.header__logo__img} src="img/dragon.png" alt="logo" />
                 Подстолки
             </a>
             <Search />

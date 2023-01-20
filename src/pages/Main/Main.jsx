@@ -1,4 +1,4 @@
-import './Main.scss';
+import styles from './Main.module.scss';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -22,11 +22,11 @@ function Main() {
     }, []);
 
     return (
-        <div className="main">
+        <div className={styles.main}>
             <Sort />
-            <div className="main__body">
+            <div className={styles.main__body}>
                 <Sidebar />
-                <div className="games-list">
+                <div className={styles.games_list}>
                     {isLoading
                         ? [...new Array(6)].map((_, id) => <Skeleton key={id} />)
                         : gamesList.map((game) => (
