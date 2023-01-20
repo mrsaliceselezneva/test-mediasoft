@@ -1,0 +1,44 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.cart {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 160px);
+
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        margin-top: 80px;
+
+        &__text {
+            @include text(600, 20px, 16px, #316650);
+            margin-bottom: 10px;
+        }
+
+        &__button {
+            margin-top: 10px;
+            border-radius: 20px;
+            border: none;
+            height: 40px;
+            background-color: #c5e080;
+            @include text(500, 18px, 16px, #316650);
+        }
+
+        &__button:hover {
+            background-color: rgba(49, 102, 80, 0.3);
+        }
+
+        &__button:active {
+            box-shadow: 0 0 5px 2px #316650;
+        }
+    }
+}

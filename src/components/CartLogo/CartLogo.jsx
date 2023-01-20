@@ -3,9 +3,9 @@ import { FiShoppingCart } from 'react-icons/fi';
 
 function CartLogo() {
     return (
-        <div className="background-cart-logo">
+        <a className="background-cart-logo" href={`${process.env.REACT_APP_URL}/cart`}>
             <FiShoppingCart className="cart-logo" />
-        </div>
+        </a>
     );
 }
 
