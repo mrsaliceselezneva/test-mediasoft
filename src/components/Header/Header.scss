@@ -1,8 +1,18 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
 $header-height: 80px;
 
 .header {
     height: $header-height;
     background-color: #316650;
+    box-shadow: 0 0 5px 2px #316650;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -10,8 +20,23 @@ $header-height: 80px;
     padding-left: 100px;
     padding-right: 110px;
 
-    .logo {
-        height: $header-height;
-        cursor: pointer;
+    &__logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-decoration: none;
+
+        height: 40px;
+        background-color: #fffff0;
+        padding-right: 10px;
+        border-radius: 20px;
+        @include text(200, 20px, 20px, #316650);
+
+        &__img {
+            background-color: #fffff0;
+            height: $header-height - 10px;
+            cursor: pointer;
+            border-radius: 100%;
+        }
     }
 }

@@ -12,54 +12,57 @@
     margin-bottom: 30px;
     width: 255px;
     min-width: 255px;
+    height: 390px;
 
-    background-color: rgba(197, 224, 128, 0.4);
-    border-radius: 16px;
+    background-color: #fffff0;
+    border-radius: 18px;
+    border: solid 2px rgba(49, 102, 80, 0.3);
+
     padding: 10px;
+    position: relative;
+    cursor: pointer;
 
-    .game-block-img {
+    &__img {
         width: 100%;
         height: auto;
     }
 
-    .game-block-title {
+    &__title {
         display: flex;
         flex-wrap: wrap;
         overflow: hidden;
         text-align: center;
         justify-content: center;
-        @include text(200, 18px, 16px, #316650);
+        @include text(400, 18px, 16px, #316650);
 
-        border-radius: 12px;
+        border-radius: 18px;
         background-color: #c5e080;
         height: auto;
         padding: 10px;
     }
 
-    .game-block-price {
+    &__price {
         display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
         text-align: center;
         justify-content: center;
-        @include text(200, 18px, 16px, #c5e080);
+        @include text(600, 18px, 16px, #fffff0);
 
-        border-radius: 12px;
-        background-color: #316650;
-        height: auto;
+        border-radius: 18px;
+        background-color: #ff6e4a;
+        height: 18px;
+        width: 90px;
         padding: 10px;
-        margin-top: 10px;
-        margin-bottom: 0;
-        margin-left: 50%;
 
-        .game-block-add-cart {
-            margin-left: 0;
-            margin-right: auto;
+        &__add-cart {
+            cursor: pointer;
+            margin-right: 10px;
         }
     }
 
-    .game-block-price:hover {
-        @include text(200, 18px, 16px, #316650);
-        background-color: #c5e080;
+    &__price:hover {
+        background-color: #316650;
     }
 }

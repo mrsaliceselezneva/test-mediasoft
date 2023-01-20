@@ -1,5 +1,4 @@
 import './Header.scss';
-import logo from '../assets/img/logo.png';
 
 import Search from '../Search/Search';
 import CartLogo from '../CartLogo/CartLogo';
@@ -7,8 +6,9 @@ import CartLogo from '../CartLogo/CartLogo';
 function Header() {
     return (
         <div className="header">
-            <a href="/">
-                <img className="logo" src={logo} alt={'logo'} />
+            <a className="header__logo" href="/">
+                <img className="header__logo__img" src="img/dragon.png" alt="logo" />
+                Подстолки
             </a>
             <Search />
             <CartLogo />

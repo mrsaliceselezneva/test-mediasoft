@@ -1,0 +1,73 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.sort {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 0;
+    margin-left: auto;
+    margin-top: 30px;
+    width: 280px;
+    position: relative;
+    @include text(600, 17px, 16px, #316650);
+
+    &__now {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 30px;
+        background-color: #fffff0;
+        border-radius: 20px;
+        border: solid 2px rgba(49, 102, 80, 0.3);
+        margin-right: 0;
+        margin-left: auto;
+        padding-left: 5px;
+        padding-right: 5px;
+        @include text(400, 14px, 16px, #316650);
+        cursor: pointer;
+
+        &__fichevron {
+            margin-left: 5px;
+        }
+    }
+
+    &__now:hover {
+        background-color: #c5e080;
+    }
+
+    &__popup {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color: #fffff0;
+        border-radius: 20px;
+        box-shadow: 0 0 5px 2px;
+        padding: 0;
+
+        &__element {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+            height: 30px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        &__element:hover {
+            background-color: #c5e080;
+        }
+    }
+}

@@ -18,14 +18,14 @@
     padding-left: 16px;
     padding-right: 16px;
 
-    .search-input {
+    &__input {
         border: none;
         background: none;
         color: #a6acbe;
         @include text(200, 20px, 20px, #a6acbe);
     }
 
-    .search-input:focus {
+    &__input:focus {
         outline: none !important;
         border: none;
     }
@@ -34,7 +34,7 @@
         display: none;
     }
 
-    .background-fisearch {
+    &__background-fisearch {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -47,7 +47,7 @@
         height: 40px;
         width: 40px;
 
-        .fisearch {
+        &__fisearch {
             color: #316650;
             width: 23px;
             height: 23px;
@@ -55,7 +55,7 @@
         }
     }
 
-    .background-fisearch:hover {
+    &__background-fisearch:hover {
         background-color: #c5e080;
 
         .fisearch {
