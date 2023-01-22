@@ -69,3 +69,28 @@
         color: #316650;
     }
 }
+
+.background_fisearch2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+
+    .fisearch2 {
+        height: 35px;
+        width: 35px;
+        color: #fffff0;
+        cursor: pointer;
+    }
+}
+
+.background_fisearch2:hover {
+    background-color: #fffff0;
+
+    .fisearch2 {
+        color: #316650;
+    }
+}

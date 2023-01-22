@@ -1,6 +1,6 @@
 import styles from './Main.module.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import axios from 'axios';
 
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -8,9 +8,23 @@ import GameBlock from '../../components/GameBlock/GameBlock';
 import Skeleton from '../../components/GameBlock/Skeleton';
 import Sort from '../../components/Sort/Sort';
 
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        function updateSize() {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+}
+
 function Main() {
     const [gamesList, setGamesList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [width, height] = useWindowSize();
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/items`).then((response) => {
@@ -25,7 +39,7 @@ function Main() {
         <div className={styles.main}>
             <Sort />
             <div className={styles.main__body}>
-                <Sidebar />
+                {width > 1030 && <Sidebar />}
                 <div className={styles.games_list}>
                     {isLoading
                         ? [...new Array(6)].map((_, id) => <Skeleton key={id} />)

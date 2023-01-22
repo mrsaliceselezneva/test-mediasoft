@@ -7,14 +7,32 @@
     color: $c;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: calc(280px * 4 + 30px * 3);
+    @media (max-width: 1400px) {
+        width: calc(280px * 3 + 30px * 2);
+    }
+    @media (max-width: 1030px) {
+        width: calc(280px * 2 + 30px * 1);
+    }
+    @media (max-width: 620px) {
+        width: calc(280px * 1 + 30px * 0);
+    }
+}
+
 .sort {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-right: 0;
     margin-left: auto;
+    margin-right: 0;
     margin-top: 30px;
-    width: 280px;
     position: relative;
     @include text(600, 17px, 16px, #316650);
 

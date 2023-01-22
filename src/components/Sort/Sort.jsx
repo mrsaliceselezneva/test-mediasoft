@@ -15,31 +15,33 @@ function Sort() {
     ];
 
     return (
-        <div className={styles.sort}>
-            Сортировать по:
-            <div onClick={() => setShowPopup(!showPoopup)} className={styles.sort__now}>
-                {selectSort}
-                {showPoopup ? (
-                    <FiChevronUp className={styles.sort__now__fichevron} />
-                ) : (
-                    <FiChevronDown className={styles.sort__now__fichevron} />
+        <div className={styles.wrapper}>
+            <div className={styles.sort}>
+                Сортировать по:
+                <div onClick={() => setShowPopup(!showPoopup)} className={styles.sort__now}>
+                    {selectSort}
+                    {showPoopup ? (
+                        <FiChevronUp className={styles.sort__now__fichevron} />
+                    ) : (
+                        <FiChevronDown className={styles.sort__now__fichevron} />
+                    )}
+                </div>
+                {showPoopup && (
+                    <ul className={styles.sort__popup}>
+                        {filterList.map((element, id) => (
+                            <li
+                                key={element}
+                                onClick={() => {
+                                    setShowPopup(!showPoopup);
+                                    setSelectSort(element);
+                                }}
+                                className={styles.sort__popup__element}>
+                                {element}
+                            </li>
+                        ))}
+                    </ul>
                 )}
             </div>
-            {showPoopup && (
-                <ul className={styles.sort__popup}>
-                    {filterList.map((element, id) => (
-                        <li
-                            key={element}
-                            onClick={() => {
-                                setShowPopup(!showPoopup);
-                                setSelectSort(element);
-                            }}
-                            className={styles.sort__popup__element}>
-                            {element}
-                        </li>
-                    ))}
-                </ul>
-            )}
         </div>
     );
 }
