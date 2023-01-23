@@ -1,0 +1,106 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.game_block {
+    display: flex;
+    flex-direction: row;
+    background-color: #fffff0;
+    border-radius: 18px;
+    border: solid 2px rgba(49, 102, 80, 0.3);
+
+    width: calc(280px * 4 + 30px * 3);
+    @media (max-width: 1400px) {
+        width: calc(280px * 3 + 30px * 2);
+    }
+    @media (max-width: 1030px) {
+        width: calc(280px * 2 + 30px * 1);
+    }
+    @media (max-width: 620px) {
+        width: calc(280px * 1 + 30px * 0);
+    }
+
+    padding: 10px;
+
+    &__img {
+        width: auto;
+        height: 100%;
+    }
+    &__wrapper {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+
+        align-items: center;
+
+        &__title {
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            text-align: center;
+            justify-content: center;
+            min-width: 280px;
+            @include text(400, 18px, 16px, #316650);
+            border-radius: 18px;
+            background-color: #c5e080;
+            height: auto;
+            margin-left: 10px;
+            padding: 10px;
+        }
+
+        &__price {
+            display: flex;
+            margin-left: auto;
+            margin-right: 10px;
+            justify-content: center;
+            @include text(600, 18px, 16px, #fffff0);
+
+            border-radius: 20px;
+            background-color: #ff6e4a;
+            height: 18px;
+            width: 90px;
+            padding: 10px;
+        }
+        &__count {
+            display: flex;
+            flex-direction: row;
+            margin-left: auto;
+            margin-right: auto;
+
+            &__number {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                color: #316650;
+            }
+
+            &__icon {
+                width: 25px;
+                height: 25px;
+                color: #ff6e4a;
+                cursor: pointer;
+            }
+        }
+        &__iconx {
+            margin-left: auto;
+            margin-right: 10px;
+            width: 25px;
+            height: 25px;
+            color: rgba(49, 102, 80, 0.3);
+            cursor: pointer;
+        }
+
+        &__iconx:hover {
+            color: #ff6e4a;
+        }
+    }
+}

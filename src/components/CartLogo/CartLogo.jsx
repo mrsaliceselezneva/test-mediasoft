@@ -6,7 +6,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 
 function CartLogo() {
     return (
-        <Link className={styles.background_logo} to={`${process.env.REACT_APP_URL}/cart`}>
+        <Link className={styles.background_logo} to="/cart">
             <FiShoppingCart className={styles.logo} />
         </Link>
     );

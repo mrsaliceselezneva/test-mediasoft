@@ -1,0 +1,100 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: calc(280px * 4 + 30px * 3);
+    @media (max-width: 1400px) {
+        width: calc(280px * 3 + 30px * 2);
+    }
+    @media (max-width: 1030px) {
+        width: calc(280px * 2 + 30px * 1);
+    }
+    @media (max-width: 620px) {
+        width: calc(280px * 1 + 30px * 0);
+    }
+
+    &__pagination {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: auto;
+        margin-right: 0;
+        margin-top: 30px;
+        position: relative;
+        @include text(600, 17px, 16px, #316650);
+
+        &__pages {
+            display: flex;
+            flex-direction: row;
+
+            &__block {
+                display: flex;
+                align-items: center;
+                height: 30px;
+                background-color: #fffff0;
+                border-radius: 20px;
+                border: solid 2px rgba(49, 102, 80, 0.3);
+                margin-right: 0;
+                margin-left: auto;
+                padding-left: 5px;
+                padding-right: 5px;
+                @include text(600, 16px, 16px, #316650);
+                cursor: pointer;
+            }
+
+            &__block:hover {
+                background-color: #c5e080;
+            }
+
+            &__select_block {
+                display: flex;
+                align-items: center;
+                height: 30px;
+                background-color: #316650;
+                border-radius: 20px;
+                border: solid 2px rgba(49, 102, 80, 0.3);
+                margin-right: 0;
+                margin-left: auto;
+                padding-left: 5px;
+                padding-right: 5px;
+                @include text(600, 16px, 16px, #fffff0);
+                cursor: pointer;
+            }
+
+            &__select_block:hover {
+                background-color: #c5e080;
+            }
+        }
+
+        &__arrow {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            background-color: #fffff0;
+            border-radius: 20px;
+            border: solid 2px rgba(49, 102, 80, 0.3);
+            margin-right: 0;
+            margin-left: auto;
+            padding-left: 5px;
+            padding-right: 5px;
+            @include text(600, 18px, 16px, #316650);
+            cursor: pointer;
+        }
+        &__arrow:hover {
+            background-color: #ff6e4a;
+            color: #fffff0;
+        }
+    }
+}

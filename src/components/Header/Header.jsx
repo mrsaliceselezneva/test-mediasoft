@@ -17,11 +17,11 @@ function useWindowSize() {
         updateSize();
         return () => window.removeEventListener('resize', updateSize);
     }, []);
-    return size;
+    return size[0];
 }
 
 function Header() {
-    const [width, height] = useWindowSize();
+    const width = useWindowSize();
 
     return (
         <div className={styles.wrapper}>

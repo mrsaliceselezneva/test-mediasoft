@@ -10,7 +10,8 @@
 .cart {
     display: flex;
     justify-content: center;
-    height: calc(100vh - 160px);
+    min-height: calc(100vh - 160px);
+    margin-bottom: 10px;
 
     &__empty {
         display: flex;
@@ -39,6 +40,135 @@
 
         &__button:active {
             box-shadow: 0 0 5px 2px #316650;
+        }
+    }
+
+    &__fill {
+        margin-top: 10px;
+
+        &__wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 0;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            position: relative;
+            @include text(600, 17px, 16px, #316650);
+
+            width: calc(280px * 4 + 30px * 3);
+            @media (max-width: 1400px) {
+                width: calc(280px * 3 + 30px * 2);
+            }
+            @media (max-width: 1030px) {
+                width: calc(280px * 2 + 30px * 1);
+            }
+            @media (max-width: 620px) {
+                width: calc(280px * 1 + 30px * 0);
+            }
+
+            &__clear {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 30px;
+                background-color: #fffff0;
+                border-radius: 20px;
+                border: solid 2px rgba(49, 102, 80, 0.3);
+                margin-right: 0;
+                margin-left: auto;
+                padding-left: 5px;
+                padding-right: 5px;
+                @include text(400, 14px, 16px, #316650);
+                cursor: pointer;
+
+                &__icon {
+                    margin-left: 5px;
+                }
+            }
+            &__clear:hover {
+                background-color: #ff6e4a;
+                color: #fffff0;
+            }
+        }
+
+        &__order_info {
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: 0;
+            margin-top: 10px;
+            @include text(600, 17px, 16px, #316650);
+
+            width: calc(280px * 4 + 30px * 3);
+            @media (max-width: 1400px) {
+                width: calc(280px * 3 + 30px * 2);
+            }
+            @media (max-width: 1030px) {
+                width: calc(280px * 2 + 30px * 1);
+            }
+            @media (max-width: 620px) {
+                width: calc(280px * 1 + 30px * 0);
+            }
+
+            &__summary {
+                display: flex;
+                flex-direction: row;
+                margin-left: auto;
+                margin-right: 0;
+
+                &__block {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    height: 30px;
+                    background-color: #fffff0;
+                    border-radius: 20px;
+                    border: solid 2px rgba(49, 102, 80, 0.3);
+                    margin-right: 0;
+                    margin-left: auto;
+                    padding-left: 5px;
+                    @include text(400, 14px, 16px, #316650);
+
+                    &__num {
+                        display: flex;
+                        margin-right: 0;
+                        margin-left: 5px;
+                        min-width: 16px;
+                        justify-content: center;
+                        @include text(600, 18px, 16px, #fffff0);
+
+                        border-radius: 20px;
+                        background-color: #ff6e4a;
+                        padding: 7px;
+                    }
+                }
+            }
+            &__order {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 40px;
+                background-color: #fffff0;
+                border-radius: 20px;
+                border: solid 2px rgba(49, 102, 80, 0.3);
+                margin-right: 0;
+                margin-left: auto;
+                margin-top: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                @include text(600, 18px, 16px, #316650);
+                cursor: pointer;
+
+                &__icon {
+                    margin-left: 5px;
+                }
+            }
+            &__order:hover {
+                background-color: #ff6e4a;
+                color: #fffff0;
+            }
         }
     }
 }

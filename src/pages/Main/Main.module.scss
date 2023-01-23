@@ -26,10 +26,12 @@
 
             @media (max-width: 1400px) {
                 grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(6, 1fr);
             }
 
             @media (max-width: 620px) {
                 grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(12, 1fr);
             }
         }
     }

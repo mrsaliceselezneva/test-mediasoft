@@ -8,10 +8,26 @@ function Sort() {
     const [showPoopup, setShowPopup] = useState(false);
 
     const filterList = [
-        'возрастанию цены',
-        'убыванию цены',
-        'названию от А до Я',
-        'названию от Я до А',
+        {
+            name: 'возрастанию цены',
+            sortProperty: 'price',
+            orderPropert: 'asc',
+        },
+        {
+            name: 'убыванию цены',
+            sortProperty: 'price',
+            orderPropert: 'desc',
+        },
+        {
+            name: 'названию от А до Я',
+            sortProperty: 'name',
+            orderPropert: 'asc',
+        },
+        {
+            name: 'названию от Я до А',
+            sortProperty: 'name',
+            orderPropert: 'desc',
+        },
     ];
 
     return (
@@ -30,13 +46,13 @@ function Sort() {
                     <ul className={styles.sort__popup}>
                         {filterList.map((element, id) => (
                             <li
-                                key={element}
+                                key={element.name}
                                 onClick={() => {
                                     setShowPopup(!showPoopup);
-                                    setSelectSort(element);
+                                    setSelectSort(element.name);
                                 }}
                                 className={styles.sort__popup__element}>
-                                {element}
+                                {element.name}
                             </li>
                         ))}
                     </ul>

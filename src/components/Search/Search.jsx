@@ -1,4 +1,5 @@
 import styles from './Search.module.scss';
+
 import { FiSearch } from 'react-icons/fi';
 
 function Search() {

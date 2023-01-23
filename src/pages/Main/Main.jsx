@@ -7,6 +7,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import GameBlock from '../../components/GameBlock/GameBlock';
 import Skeleton from '../../components/GameBlock/Skeleton';
 import Sort from '../../components/Sort/Sort';
+import Pagination from '../../components/Pagination/Pagination';
 
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
@@ -18,13 +19,13 @@ function useWindowSize() {
         updateSize();
         return () => window.removeEventListener('resize', updateSize);
     }, []);
-    return size;
+    return size[0];
 }
 
 function Main() {
     const [gamesList, setGamesList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [width, height] = useWindowSize();
+    const width = useWindowSize();
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/items`).then((response) => {
@@ -42,7 +43,7 @@ function Main() {
                 {width > 1030 && <Sidebar />}
                 <div className={styles.games_list}>
                     {isLoading
-                        ? [...new Array(6)].map((_, id) => <Skeleton key={id} />)
+                        ? [...new Array(12)].map((_, id) => <Skeleton key={id} />)
                         : gamesList.map((game) => (
                               <GameBlock
                                   key={game.name}
@@ -53,6 +54,7 @@ function Main() {
                           ))}
                 </div>
             </div>
+            <Pagination />
         </div>
     );
 }
