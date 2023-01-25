@@ -7,17 +7,24 @@ import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Cart from './pages/Cart/Cart';
 import NotFound from './pages/NotFound/NotFound';
+import { createContext, useState } from 'react';
+
+export const SearchContext = createContext();
 
 function App() {
+    const [searchValue, setSearchValue] = useState('');
+
     return (
         <div>
-            <Header />
-            <Routes>
-                <Route exact path="/cart" element={<Cart />} />
-                <Route exact path="/" element={<Main />} />
-                <Route exact path="/*" element={<NotFound />} />
-            </Routes>
-            <Footer />
+            <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+                <Header />
+                <Routes>
+                    <Route exact path="/cart" element={<Cart />} />
+                    <Route exact path="/" element={<Main />} />
+                    <Route exact path="/*" element={<NotFound />} />
+                </Routes>
+                <Footer />
+            </SearchContext.Provider>
         </div>
     );
 }

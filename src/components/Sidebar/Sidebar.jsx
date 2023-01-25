@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import styles from './Sidebar.module.scss';
 import SidebarBlock from '../SidebarBlock/SidebarBlock';
 
-const sidebarList = ['Все', 'Карточные', 'Для компании', 'Для двоих'];
-
 function Sidebar() {
-    const [selectGameType, setSelectGameType] = useState(0);
+    const [selectCategory, setSelectCategory] = useState(0);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then((response) => {
+            setCategories(response.data);
+        });
+    }, []);
 
     return (
         <div className={styles.sidebar}>
-            {sidebarList.map((element, id) => (
+            {categories.map((category, id) => (
                 <SidebarBlock
-                    key={element}
-                    changeSelectGameType={() => setSelectGameType(id)}
-                    gameType={element}
-                    select={selectGameType === id}
+                    key={category}
+                    changeSelectGameType={() => setSelectCategory(id)}
+                    gameType={category}
+                    select={selectCategory === id}
                 />
             ))}
         </div>

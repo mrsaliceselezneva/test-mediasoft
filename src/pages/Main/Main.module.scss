@@ -1,7 +1,15 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
 .main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     height: 100%;
@@ -15,23 +23,52 @@
         padding-top: 40px;
 
         .games_list {
-            // display: flex;
-            // flex-wrap: wrap;
-            // overflow: hidden;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             grid-column-gap: 30px;
             grid-row-gap: 30px;
 
             @media (max-width: 1400px) {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(6, 1fr);
+                grid-template-rows: repeat(3, 1fr);
             }
 
             @media (max-width: 620px) {
                 grid-template-columns: repeat(1, 1fr);
-                grid-template-rows: repeat(12, 1fr);
+                grid-template-rows: repeat(6, 1fr);
+            }
+        }
+
+        &__not_found {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc(280px * 3 + 30px * 2);
+            @media (max-width: 1400px) {
+                width: calc(280px * 2 + 30px * 1);
+            }
+            @media (max-width: 1030px) {
+                width: calc(280px * 2 + 30px * 1);
+            }
+            @media (max-width: 620px) {
+                width: calc(280px * 1 + 30px * 0);
+            }
+
+            @include text(600, 20px, 20px, #316650);
+
+            &__img {
+                $img_width_div: 3;
+                width: calc((280px * 3 + 30px * 2) / $img_width_div);
+                @media (max-width: 1400px) {
+                    width: calc((280px * 2 + 30px * 1) / $img_width_div);
+                }
+                @media (max-width: 1030px) {
+                    width: calc((280px * 2 + 30px * 1) / $img_width_div);
+                }
+                @media (max-width: 620px) {
+                    width: calc((280px * 1 + 30px * 0) / $img_width_div);
+                }
             }
         }
     }
