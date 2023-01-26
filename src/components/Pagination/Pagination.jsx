@@ -1,66 +1,100 @@
 import styles from './Pagination.module.scss';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { changePage, changePrevPages, changeSubsPages } from '../../redux/slices/paginationSlice';
+import {
+    changePage,
+    changeFirstPage,
+    changeMediumPage,
+    changeLastPage,
+} from '../../redux/slices/paginationSlice';
 
 import { FiChevronsLeft, FiChevronsRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 function Pagination() {
     const dispatch = useDispatch();
-    const { selectPage, numPages, prevPages, subsPages, showPages } = useSelector(
+    const { selectPage, numPages, firstPage, mediumPage, lastPage, showPages } = useSelector(
         (state) => state.paginationReducer,
     );
 
     function pageRight(diff) {
-        if (prevPages === subsPages) {
-            if (selectPage + diff + subsPages <= numPages) {
+        if (selectPage === mediumPage) {
+            if (lastPage + diff <= numPages) {
+                dispatch(changeFirstPage(firstPage + diff));
+                dispatch(changeLastPage(lastPage + diff));
+                dispatch(changeMediumPage(mediumPage + diff));
                 dispatch(changePage(selectPage + diff));
-            } else {
-                dispatch(changePrevPages(prevPages + diff));
+            } else if (selectPage + diff <= numPages) {
+                dispatch(changeFirstPage(firstPage + numPages - lastPage));
+                dispatch(changeLastPage(lastPage + numPages - lastPage));
+                dispatch(changeMediumPage(mediumPage + numPages - lastPage));
                 dispatch(changePage(selectPage + diff));
-                dispatch(changeSubsPages(subsPages - diff));
             }
-        } else if (prevPages < subsPages) {
-            if (diff <= Math.ceil(showPages / 2)) {
-                dispatch(changePrevPages(prevPages + diff));
-                dispatch(changePage(selectPage + diff));
-                dispatch(changeSubsPages(subsPages - diff));
+        } else if (selectPage < mediumPage) {
+            if (selectPage + diff > mediumPage) {
+                if (lastPage + diff - (mediumPage - selectPage) <= numPages) {
+                    const v = diff - (mediumPage - selectPage);
+                    dispatch(changeFirstPage(firstPage + v));
+                    dispatch(changeLastPage(lastPage + v));
+                    dispatch(changeMediumPage(mediumPage + v));
+                    dispatch(changePage(selectPage + diff));
+                } else {
+                    dispatch(changeFirstPage(firstPage + numPages - lastPage));
+                    dispatch(changeLastPage(lastPage + numPages - lastPage));
+                    dispatch(changeMediumPage(mediumPage + numPages - lastPage));
+                    dispatch(changePage(selectPage + diff));
+                }
             } else {
-            }
-        } else if (prevPages > subsPages) {
-            if (prevPages + 1 < showPages) {
-                dispatch(changePrevPages(prevPages + diff));
                 dispatch(changePage(selectPage + diff));
-                dispatch(changeSubsPages(subsPages - diff));
+            }
+        } else if (selectPage > mediumPage) {
+            if (selectPage + diff <= numPages) {
+                dispatch(changePage(selectPage + diff));
             }
         }
     }
 
     function pageLeft(diff) {
-        if (prevPages === subsPages) {
-            if (selectPage - diff - prevPages >= diff) {
+        if (selectPage === mediumPage) {
+            if (firstPage - diff >= 1) {
+                dispatch(changeFirstPage(firstPage - diff));
+                dispatch(changeLastPage(lastPage - diff));
+                dispatch(changeMediumPage(mediumPage - diff));
                 dispatch(changePage(selectPage - diff));
-            } else {
-                dispatch(changePrevPages(prevPages - diff));
+            } else if (selectPage - diff >= 1) {
+                dispatch(changeFirstPage(firstPage - 1 + firstPage));
+                dispatch(changeLastPage(lastPage - 1 + firstPage));
+                dispatch(changeMediumPage(mediumPage - 1 + firstPage));
                 dispatch(changePage(selectPage - diff));
-                dispatch(changeSubsPages(subsPages + diff));
             }
-        } else if (prevPages > subsPages) {
-            dispatch(changePrevPages(prevPages - diff));
-            dispatch(changePage(selectPage - diff));
-            dispatch(changeSubsPages(subsPages + diff));
-        } else if (prevPages < subsPages) {
-            if (subsPages + diff < showPages) {
-                dispatch(changePrevPages(prevPages - diff));
+        } else if (selectPage > mediumPage) {
+            if (selectPage - diff < mediumPage) {
+                if (firstPage - diff + (selectPage - mediumPage) >= 1) {
+                    const v = -diff + (selectPage - mediumPage);
+                    dispatch(changeFirstPage(firstPage + v));
+                    dispatch(changeLastPage(lastPage + v));
+                    dispatch(changeMediumPage(mediumPage + v));
+                    dispatch(changePage(selectPage - diff));
+                } else {
+                    dispatch(changeFirstPage(firstPage - 1 + firstPage));
+                    dispatch(changeLastPage(lastPage - 1 + firstPage));
+                    dispatch(changeMediumPage(mediumPage - 1 + firstPage));
+                    dispatch(changePage(selectPage - diff));
+                }
+            } else {
                 dispatch(changePage(selectPage - diff));
-                dispatch(changeSubsPages(subsPages + diff));
+            }
+        } else if (selectPage < mediumPage) {
+            if (selectPage - diff >= 1) {
+                dispatch(changePage(selectPage - diff));
             }
         }
     }
 
     function clickPage(page) {
         if (page < selectPage) {
+            pageLeft(selectPage - page);
         } else if (page > selectPage) {
+            pageRight(page - selectPage);
         }
     }
 
@@ -69,8 +103,9 @@ function Pagination() {
             <div className={styles.wrapper__pagination}>
                 <div
                     onClick={() => {
-                        dispatch(changeSubsPages(prevPages + subsPages));
-                        dispatch(changePrevPages(0));
+                        dispatch(changeFirstPage(1));
+                        dispatch(changeLastPage(showPages));
+                        dispatch(changeMediumPage(Math.ceil(showPages / 2)));
                         dispatch(changePage(1));
                     }}
                     className={styles.wrapper__pagination__arrow}>
@@ -80,7 +115,7 @@ function Pagination() {
                     <FiChevronLeft />
                 </div>
                 <div className={styles.wrapper__pagination__pages}>
-                    {Array.from({ length: showPages }, (_, i) => selectPage - prevPages + i).map(
+                    {Array.from({ length: showPages }, (_, i) => firstPage + i).map(
                         (element, id) => (
                             <div
                                 key={element}
@@ -100,9 +135,10 @@ function Pagination() {
                 </div>
                 <div
                     onClick={() => {
-                        dispatch(changePrevPages(prevPages + subsPages));
+                        dispatch(changeFirstPage(numPages - showPages + 1));
+                        dispatch(changeLastPage(numPages));
+                        dispatch(changeMediumPage(numPages - Math.floor(showPages / 2)));
                         dispatch(changePage(numPages));
-                        dispatch(changeSubsPages(0));
                     }}
                     className={styles.wrapper__pagination__arrow}>
                     <FiChevronsRight />

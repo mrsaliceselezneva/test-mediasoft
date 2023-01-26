@@ -28,7 +28,7 @@ function useWindowSize() {
 }
 
 function Main() {
-    const { selectPage, numPages, prevPages, subsPages } = useSelector(
+    const { selectPage, numPages, firstPage, mediumPage, lastPage, showPages } = useSelector(
         (state) => state.paginationReducer,
     );
     const dispatch = useDispatch();
@@ -40,10 +40,12 @@ function Main() {
     const width = useWindowSize();
 
     console.log('---------');
-    console.log('prevPages=', prevPages);
-    console.log('subsPages=', subsPages);
+    console.log('firstPage=', firstPage);
+    console.log('mediumPage=', mediumPage);
+    console.log('lastPage=', lastPage);
     console.log('selectPage=', selectPage);
     console.log('numPages=', numPages);
+    console.log('showPages=', showPages);
 
     useEffect(() => {
         setIsLoading(true);

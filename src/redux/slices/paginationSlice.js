@@ -3,9 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     selectPage: 1,
     numPages: 1,
-    showPages: 3,
-    prevPages: 0,
-    subsPages: 2,
+    showPages: 5,
+    firstPage: 1,
+    mediumPage: 3,
+    lastPage: 5,
 };
 
 const paginationSlice = createSlice({
@@ -18,16 +19,19 @@ const paginationSlice = createSlice({
         changeNumPages(state, action) {
             state.numPages = action.payload;
         },
-        changePrevPages(state, action) {
-            state.prevPages = action.payload;
+        changeFirstPage(state, action) {
+            state.firstPage = action.payload;
         },
-        changeSubsPages(state, action) {
-            state.subsPages = action.payload;
+        changeMediumPage(state, action) {
+            state.mediumPage = action.payload;
+        },
+        changeLastPage(state, action) {
+            state.lastPage = action.payload;
         },
     },
 });
 
-export const { changePage, changeNumPages, changePrevPages, changeSubsPages } =
+export const { changePage, changeNumPages, changeFirstPage, changeMediumPage, changeLastPage } =
     paginationSlice.actions;
 
 export default paginationSlice.reducer;
