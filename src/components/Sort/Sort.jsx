@@ -1,32 +1,36 @@
 import styles from './Sort.module.scss';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setNameSort, setTypeSort, setOrderSort } from '../../redux/slices/sortSlice';
+
 import React, { useState } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function Sort() {
-    const [selectSort, setSelectSort] = useState('возрастанию цены');
+    const dispatch = useDispatch();
+    const { nameSort } = useSelector((state) => state.sortReducer);
     const [showPoopup, setShowPopup] = useState(false);
 
-    const filterList = [
+    const sortList = [
         {
-            name: 'возрастанию цены',
-            sortProperty: 'price',
-            orderPropert: 'asc',
+            nameSort: 'возрастанию цены',
+            typeSort: 'price',
+            orderSort: 'asc',
         },
         {
-            name: 'убыванию цены',
-            sortProperty: 'price',
-            orderPropert: 'desc',
+            nameSort: 'убыванию цены',
+            typeSort: 'price',
+            orderSort: 'desc',
         },
         {
-            name: 'названию от А до Я',
-            sortProperty: 'name',
-            orderPropert: 'asc',
+            nameSort: 'названию от А до Я',
+            typeSort: 'name',
+            orderSort: 'asc',
         },
         {
-            name: 'названию от Я до А',
-            sortProperty: 'name',
-            orderPropert: 'desc',
+            nameSort: 'названию от Я до А',
+            typeSort: 'name',
+            orderSort: 'desc',
         },
     ];
 
@@ -35,7 +39,7 @@ function Sort() {
             <div className={styles.sort}>
                 Сортировать по:
                 <div onClick={() => setShowPopup(!showPoopup)} className={styles.sort__now}>
-                    {selectSort}
+                    {nameSort}
                     {showPoopup ? (
                         <FiChevronUp className={styles.sort__now__fichevron} />
                     ) : (
@@ -44,15 +48,17 @@ function Sort() {
                 </div>
                 {showPoopup && (
                     <ul className={styles.sort__popup}>
-                        {filterList.map((element, id) => (
+                        {sortList.map((element, id) => (
                             <li
-                                key={element.name}
+                                key={element.nameSort}
                                 onClick={() => {
                                     setShowPopup(!showPoopup);
-                                    setSelectSort(element.name);
+                                    dispatch(setNameSort(element.nameSort));
+                                    dispatch(setTypeSort(element.typeSort));
+                                    dispatch(setOrderSort(element.orderSort));
                                 }}
                                 className={styles.sort__popup__element}>
-                                {element.name}
+                                {element.nameSort}
                             </li>
                         ))}
                     </ul>

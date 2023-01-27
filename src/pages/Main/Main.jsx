@@ -12,8 +12,7 @@ import {
     changeMediumPage,
     changeLastPage,
 } from '../../redux/slices/paginationSlice';
-
-import { setFilter } from '../../redux/slices/filterSlice';
+import { setSort } from '../../redux/slices/sortSlice';
 
 import { SearchContext } from '../../App';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -39,6 +38,7 @@ function useWindowSize() {
 function Main() {
     const { selectPage, numPages } = useSelector((state) => state.paginationReducer);
     const { selectFilter } = useSelector((state) => state.filterReducer);
+    const { nameSort, typeSort, orderSort } = useSelector((state) => state.sortReducer);
     const dispatch = useDispatch();
 
     const { searchValue } = useContext(SearchContext);
@@ -49,7 +49,7 @@ function Main() {
 
     useEffect(() => {
         setIsLoading(true);
-
+        // бек, который я использовал, не выдаёт запросы при одновременном использовании поиска и фильтрации. поэтому на сайте этого не будет
         if (searchValue) {
             axios
                 .get(`${process.env.REACT_APP_API_URL}/items?search=${searchValue}`)
@@ -111,7 +111,7 @@ function Main() {
         if (searchValue) {
             axios
                 .get(
-                    `${process.env.REACT_APP_API_URL}/items?search=${searchValue}&page=${selectPage}&limit=6`,
+                    `${process.env.REACT_APP_API_URL}/items?search=${searchValue}&sortBy=${typeSort}&order=${orderSort}&page=${selectPage}&limit=6`,
                 )
                 .then((response) => {
                     setTimeout(() => {
@@ -122,7 +122,7 @@ function Main() {
         } else {
             axios
                 .get(
-                    `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&page=${selectPage}&limit=6`,
+                    `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&sortBy=${typeSort}&order=${orderSort}&page=${selectPage}&limit=6`,
                 )
                 .then((response) => {
                     setTimeout(() => {
@@ -131,7 +131,7 @@ function Main() {
                     }, 1000);
                 });
         }
-    }, [selectPage, selectFilter, searchValue]);
+    }, [selectPage, selectFilter, searchValue, nameSort]);
 
     if (games.length === 0 && !isLoading)
         return (
