@@ -7,6 +7,8 @@ import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Cart from './pages/Cart/Cart';
 import NotFound from './pages/NotFound/NotFound';
+import Game from './pages/Game/Game';
+
 import { createContext, useState } from 'react';
 
 export const SearchContext = createContext();
@@ -21,6 +23,7 @@ function App() {
                 <Routes>
                     <Route exact path="/cart" element={<Cart />} />
                     <Route exact path="/" element={<Main />} />
+                    <Route exact path="/game/*" element={<Game />} />
                     <Route exact path="/*" element={<NotFound />} />
                 </Routes>
                 <Footer />

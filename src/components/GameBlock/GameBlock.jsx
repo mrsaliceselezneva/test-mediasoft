@@ -4,11 +4,15 @@ import { FaCartPlus } from 'react-icons/fa';
 
 function GameBlock(props) {
     return (
-        <div className={styles.game_block}>
+        <div
+            className={styles.game_block}
+            onClick={() =>
+                window.location.assign(`${process.env.REACT_APP_URL}/game?id=${props.id}`)
+            }>
             <img
                 className={styles.game_block__img}
                 src={props.img}
-                alt={'здесть скоро будет изображение'}
+                alt={'здесь скоро будет изображение'}
             />
             <div className={styles.game_block__title}>{props.name}</div>
             <div className={styles.game_block__price}>

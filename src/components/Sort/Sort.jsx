@@ -13,6 +13,11 @@ function Sort() {
 
     const sortList = [
         {
+            nameSort: '-------------------',
+            typeSort: 'id',
+            orderSort: 'asc',
+        },
+        {
             nameSort: 'возрастанию цены',
             typeSort: 'price',
             orderSort: 'asc',

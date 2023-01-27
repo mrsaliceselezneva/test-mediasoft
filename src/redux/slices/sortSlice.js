@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    nameSort: 'возрастанию цены',
-    typeSort: 'price',
+    nameSort: '-------------------',
+    typeSort: 'id',
     orderSort: 'asc',
 };
 

@@ -12,7 +12,6 @@ import {
     changeMediumPage,
     changeLastPage,
 } from '../../redux/slices/paginationSlice';
-import { setSort } from '../../redux/slices/sortSlice';
 
 import { SearchContext } from '../../App';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -163,6 +162,7 @@ function Main() {
                                       key={game.name}
                                       name={game.name}
                                       img={game.img}
+                                      id={game.id}
                                       price={game.price}
                                   />
                               ))}

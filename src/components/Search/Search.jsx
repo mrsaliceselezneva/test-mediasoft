@@ -3,7 +3,7 @@ import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 import { useContext, useState, useRef } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/slices/filterSlice';
 
 import { FiSearch } from 'react-icons/fi';
