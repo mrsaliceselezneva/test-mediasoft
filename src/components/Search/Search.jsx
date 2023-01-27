@@ -19,7 +19,15 @@ function Search() {
 
     if (winWidth > 1030)
         return (
-            <form className={styles.search}>
+            <div
+                className={styles.search}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        setSearchValue(search);
+                        dispatch(setFilter('Все'));
+                        ref.current.value = '';
+                    }
+                }}>
                 <input
                     ref={ref}
                     onChange={(event) => setSearch(event.target.value)}
@@ -37,7 +45,7 @@ function Search() {
                         className={styles.search__background_fisearch__fisearch}
                     />
                 </div>
-            </form>
+            </div>
         );
     else
         return (
