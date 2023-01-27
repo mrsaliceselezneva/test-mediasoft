@@ -4,7 +4,16 @@ import React, { useEffect, useState, useLayoutEffect, useContext } from 'react';
 import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { changePage, changeNumPages } from '../../redux/slices/paginationSlice';
+import {
+    changeNumPages,
+    changeShowPages,
+    changePage,
+    changeFirstPage,
+    changeMediumPage,
+    changeLastPage,
+} from '../../redux/slices/paginationSlice';
+
+import { setFilter } from '../../redux/slices/filterSlice';
 
 import { SearchContext } from '../../App';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -28,50 +37,91 @@ function useWindowSize() {
 }
 
 function Main() {
-    const { selectPage, numPages, firstPage, mediumPage, lastPage, showPages } = useSelector(
-        (state) => state.paginationReducer,
-    );
+    const { selectPage, numPages } = useSelector((state) => state.paginationReducer);
+    const { selectFilter } = useSelector((state) => state.filterReducer);
     const dispatch = useDispatch();
 
     const { searchValue } = useContext(SearchContext);
 
     const [games, setGames] = useState([]);
+    const [requestFilter, setRequestFilter] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const width = useWindowSize();
 
-    console.log('---------');
-    console.log('firstPage=', firstPage);
-    console.log('mediumPage=', mediumPage);
-    console.log('lastPage=', lastPage);
-    console.log('selectPage=', selectPage);
-    console.log('numPages=', numPages);
-    console.log('showPages=', showPages);
+    // console.log('---------');
+    // console.log('firstPage=', firstPage);
+    // console.log('mediumPage=', mediumPage);
+    // console.log('lastPage=', lastPage);
+    // console.log('selectPage=', selectPage);
+    // console.log('numPages=', numPages);
+    // console.log('showPages=', showPages);
 
     useEffect(() => {
         setIsLoading(true);
+
         if (searchValue) {
             axios
-                .get(`${process.env.REACT_APP_API_URL}/items?search=${searchValue}`)
+                .get(
+                    `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&search=${searchValue}`,
+                )
                 .then((response) => {
+                    const n = Math.ceil(response.data.length / 6);
+                    dispatch(changeNumPages(n));
+                    if (n === 1) {
+                        dispatch(changeLastPage(1));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(1));
+                    } else if (n === 2) {
+                        dispatch(changeLastPage(2));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(2));
+                    } else if (n >= 3 && n < 5) {
+                        dispatch(changeLastPage(3));
+                        dispatch(changeMediumPage(2));
+                        dispatch(changeShowPages(3));
+                    }
                     setTimeout(() => {
                         setGames(response.data);
                         setIsLoading(false);
                     }, 1000);
                 });
         } else {
-            axios.get(`${process.env.REACT_APP_API_URL}/items`).then((response) => {
-                dispatch(changeNumPages(Math.ceil(response.data.length / 6)));
-            });
             axios
-                .get(`${process.env.REACT_APP_API_URL}/items?page=${selectPage}&limit=6`)
+                .get(`${process.env.REACT_APP_API_URL}/items?category=${selectFilter}`)
                 .then((response) => {
-                    setTimeout(() => {
-                        setGames(response.data);
-                        setIsLoading(false);
-                    }, 1000);
+                    const n = Math.ceil(response.data.length / 6);
+                    if (n !== numPages) {
+                        dispatch(changeFirstPage(1));
+                        dispatch(changePage(1));
+                    }
+                    dispatch(changeNumPages(n));
+                    if (n === 1) {
+                        dispatch(changeLastPage(1));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(1));
+                    } else if (n === 2) {
+                        dispatch(changeLastPage(2));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(2));
+                    } else if (n >= 3 && n < 5) {
+                        dispatch(changeLastPage(3));
+                        dispatch(changeMediumPage(2));
+                        dispatch(changeShowPages(3));
+                    }
                 });
         }
-    }, [searchValue, selectPage]);
+    }, [searchValue, selectFilter]);
+
+    useEffect(() => {
+        axios
+            .get(
+                `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&page=${selectPage}&limit=6`,
+            )
+            .then((response) => {
+                setGames(response.data);
+                setIsLoading(false);
+            });
+    }, [selectPage, selectFilter]);
 
     if (games.length === 0 && !isLoading)
         return (
@@ -108,7 +158,7 @@ function Main() {
                               ))}
                     </div>
                 </div>
-                <Pagination selectPage={selectPage} numPages={numPages} />
+                <Pagination />
             </div>
         );
 }

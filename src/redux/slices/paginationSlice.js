@@ -19,6 +19,9 @@ const paginationSlice = createSlice({
         changeNumPages(state, action) {
             state.numPages = action.payload;
         },
+        changeShowPages(state, action) {
+            state.showPages = action.payload;
+        },
         changeFirstPage(state, action) {
             state.firstPage = action.payload;
         },
@@ -31,7 +34,13 @@ const paginationSlice = createSlice({
     },
 });
 
-export const { changePage, changeNumPages, changeFirstPage, changeMediumPage, changeLastPage } =
-    paginationSlice.actions;
+export const {
+    changePage,
+    changeNumPages,
+    changeShowPages,
+    changeFirstPage,
+    changeMediumPage,
+    changeLastPage,
+} = paginationSlice.actions;
 
 export default paginationSlice.reducer;

@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    selectFilter: localStorage.getItem('selectFilter') || 'Все',
+    selectFilter: 'Все',
 };
 
 const filterSlice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
-        changeFilter(state, action) {
+        setFilter(state, action) {
             state.selectFilter = action.payload;
         },
     },
 });
 
-export const { changeFilter } = filterSlice.actions;
+export const { setFilter } = filterSlice.actions;
 
 export default filterSlice.reducer;
