@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
 import styles from './Sidebar.module.scss';
 import SidebarBlock from '../SidebarBlock/SidebarBlock';
 
-import { useDispatch } from 'react-redux';
+import { SearchContext } from '../../App';
+
+import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/slices/filterSlice';
 
 function Sidebar() {
-    const [selectCategory, setSelectCategory] = useState(0);
     const [categories, setCategories] = useState([]);
 
+    const { setSearchValue } = useContext(SearchContext);
+
     const dispatch = useDispatch();
+    const { selectFilter } = useSelector((state) => state.filterReducer);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/categories`).then((response) => {
@@ -25,11 +29,11 @@ function Sidebar() {
                 <SidebarBlock
                     key={category}
                     changeSelectGameType={() => {
-                        setSelectCategory(id);
+                        setSearchValue('');
                         dispatch(setFilter(category));
                     }}
                     gameType={category}
-                    select={selectCategory === id}
+                    select={selectFilter === category}
                 />
             ))}
         </div>

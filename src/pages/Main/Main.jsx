@@ -44,50 +44,15 @@ function Main() {
     const { searchValue } = useContext(SearchContext);
 
     const [games, setGames] = useState([]);
-    const [requestFilter, setRequestFilter] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const width = useWindowSize();
-
-    // console.log('---------');
-    // console.log('firstPage=', firstPage);
-    // console.log('mediumPage=', mediumPage);
-    // console.log('lastPage=', lastPage);
-    // console.log('selectPage=', selectPage);
-    // console.log('numPages=', numPages);
-    // console.log('showPages=', showPages);
 
     useEffect(() => {
         setIsLoading(true);
 
         if (searchValue) {
             axios
-                .get(
-                    `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&search=${searchValue}`,
-                )
-                .then((response) => {
-                    const n = Math.ceil(response.data.length / 6);
-                    dispatch(changeNumPages(n));
-                    if (n === 1) {
-                        dispatch(changeLastPage(1));
-                        dispatch(changeMediumPage(1));
-                        dispatch(changeShowPages(1));
-                    } else if (n === 2) {
-                        dispatch(changeLastPage(2));
-                        dispatch(changeMediumPage(1));
-                        dispatch(changeShowPages(2));
-                    } else if (n >= 3 && n < 5) {
-                        dispatch(changeLastPage(3));
-                        dispatch(changeMediumPage(2));
-                        dispatch(changeShowPages(3));
-                    }
-                    setTimeout(() => {
-                        setGames(response.data);
-                        setIsLoading(false);
-                    }, 1000);
-                });
-        } else {
-            axios
-                .get(`${process.env.REACT_APP_API_URL}/items?category=${selectFilter}`)
+                .get(`${process.env.REACT_APP_API_URL}/items?search=${searchValue}`)
                 .then((response) => {
                     const n = Math.ceil(response.data.length / 6);
                     if (n !== numPages) {
@@ -109,19 +74,64 @@ function Main() {
                         dispatch(changeShowPages(3));
                     }
                 });
+        } else {
+            axios
+                .get(`${process.env.REACT_APP_API_URL}/items?category=${selectFilter}`)
+                .then((response) => {
+                    const n = Math.ceil(response.data.length / 6);
+                    if (n !== numPages) {
+                        dispatch(changeFirstPage(1));
+                        dispatch(changePage(1));
+                    }
+                    dispatch(changeNumPages(n));
+                    if (n === 1) {
+                        console.log('lol');
+                        dispatch(changeLastPage(1));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(1));
+                    } else if (n === 2) {
+                        dispatch(changeLastPage(2));
+                        dispatch(changeMediumPage(1));
+                        dispatch(changeShowPages(2));
+                    } else if (n >= 3 && n < 5) {
+                        dispatch(changeLastPage(3));
+                        dispatch(changeMediumPage(2));
+                        dispatch(changeShowPages(3));
+                    } else {
+                        dispatch(changeLastPage(5));
+                        dispatch(changeMediumPage(3));
+                        dispatch(changeShowPages(5));
+                    }
+                });
         }
     }, [searchValue, selectFilter]);
 
     useEffect(() => {
-        axios
-            .get(
-                `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&page=${selectPage}&limit=6`,
-            )
-            .then((response) => {
-                setGames(response.data);
-                setIsLoading(false);
-            });
-    }, [selectPage, selectFilter]);
+        // бек, который я использовал, не выдаёт запросы при одновременном использовании поиска и фильтрации. поэтому на сайте этого не будет
+        if (searchValue) {
+            axios
+                .get(
+                    `${process.env.REACT_APP_API_URL}/items?search=${searchValue}&page=${selectPage}&limit=6`,
+                )
+                .then((response) => {
+                    setTimeout(() => {
+                        setGames(response.data);
+                        setIsLoading(false);
+                    }, 1000);
+                });
+        } else {
+            axios
+                .get(
+                    `${process.env.REACT_APP_API_URL}/items?category=${selectFilter}&page=${selectPage}&limit=6`,
+                )
+                .then((response) => {
+                    setTimeout(() => {
+                        setGames(response.data);
+                        setIsLoading(false);
+                    }, 1000);
+                });
+        }
+    }, [selectPage, selectFilter, searchValue]);
 
     if (games.length === 0 && !isLoading)
         return (
