@@ -18,7 +18,11 @@
 
     padding: 10px;
     position: relative;
-    cursor: pointer;
+
+    &__link {
+        text-decoration: none;
+        cursor: pointer;
+    }
 
     &__img {
         width: 100%;
@@ -53,6 +57,7 @@
         height: 18px;
         width: 90px;
         padding: 10px;
+        cursor: pointer;
 
         &__add_cart {
             cursor: pointer;

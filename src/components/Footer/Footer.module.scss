@@ -16,53 +16,70 @@ $footer-height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 40px;
-    padding-right: 40px;
 
     &__info {
         display: flex;
+        flex-direction: row;
         align-items: center;
-        margin-right: 0;
+        width: calc(280px * 4 + 30px * 3);
+        @media (max-width: 1400px) {
+            width: calc(280px * 3 + 30px * 2);
+        }
+        @media (max-width: 1030px) {
+            width: calc(280px * 2 + 30px * 1);
+        }
+        @media (max-width: 620px) {
+            width: calc(280px * 1 + 30px * 0);
+        }
+
         margin-left: auto;
+        margin-right: auto;
     }
 
-    &__personal_info {
-        display: flex;
-        flex-direction: column;
-
-        &__fio {
-            @include text(500, 18px, 16px, #316650);
-            margin-bottom: 5px;
-        }
-
-        &__phone {
-            @include text(600, 18px, 16px, #316650);
-        }
-    }
-
-    &__background_icon {
+    &__wrapper {
         display: flex;
         align-items: center;
-        justify-content: center;
-        margin-left: 10px;
+        margin-left: auto;
+        margin-right: 0;
 
-        height: 50px;
-        width: 50px;
-        border-radius: 12px;
+        &__personal_info {
+            display: flex;
+            flex-direction: column;
 
-        &__icon {
-            height: 35px;
-            width: 35px;
-            color: #316650;
-            cursor: pointer;
+            &__fio {
+                @include text(500, 18px, 16px, #316650);
+                margin-bottom: 5px;
+            }
+
+            &__phone {
+                @include text(600, 18px, 16px, #316650);
+            }
         }
-    }
 
-    &__background_icon:hover {
-        background-color: #fffff0;
+        &__background_icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
 
-        &__icon {
-            color: #316650;
+            height: 50px;
+            width: 50px;
+            border-radius: 12px;
+
+            &__icon {
+                height: 35px;
+                width: 35px;
+                color: #316650;
+                cursor: pointer;
+            }
+        }
+
+        &__background_icon:hover {
+            background-color: #fffff0;
+
+            &__icon {
+                color: #316650;
+            }
         }
     }
 }

@@ -164,6 +164,8 @@ function Main() {
                                       img={game.img}
                                       id={game.id}
                                       price={game.price}
+                                      description={game.description}
+                                      category={game.category}
                                   />
                               ))}
                     </div>

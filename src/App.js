@@ -23,7 +23,8 @@ function App() {
                 <Routes>
                     <Route exact path="/cart" element={<Cart />} />
                     <Route exact path="/" element={<Main />} />
-                    <Route exact path="/game/*" element={<Game />} />
+                    <Route exact path="/game" element={<Game />} />
+                    <Route exact path="/game/*" element={<NotFound />} />
                     <Route exact path="/*" element={<NotFound />} />
                 </Routes>
                 <Footer />
