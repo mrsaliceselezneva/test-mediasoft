@@ -1,6 +1,6 @@
 import styles from './Search.module.scss';
 
-import { SearchContext } from '../../App';
+import { SearchContext, ShowSearchModalContext } from '../../App';
 import { useContext, useState, useRef } from 'react';
 
 import { useDispatch } from 'react-redux';
@@ -8,8 +8,11 @@ import { setFilter } from '../../redux/slices/filterSlice';
 
 import { FiSearch } from 'react-icons/fi';
 
+import SearchModal from '../SearchModal/SearchModal';
+
 function Search() {
     const { setSearchValue } = useContext(SearchContext);
+    const { setShowSearchModal } = useContext(ShowSearchModalContext);
     const { innerWidth: winWidth } = window;
 
     const [search, setSearch] = useState('');
@@ -49,7 +52,8 @@ function Search() {
         );
     else
         return (
-            <div className={styles.background_fisearch2}>
+            <div className={styles.background_fisearch2} onClick={() => setShowSearchModal(true)}>
+                <SearchModal />
                 <FiSearch className={styles.fisearch2} />
             </div>
         );

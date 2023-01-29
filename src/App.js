@@ -12,22 +12,31 @@ import Game from './pages/Game/Game';
 import { createContext, useState } from 'react';
 
 export const SearchContext = createContext();
+export const ShowSidebarModalContext = createContext();
+export const ShowSearchModalContext = createContext();
 
 function App() {
     const [searchValue, setSearchValue] = useState('');
+    const [showSidebarModal, setShowSidebarModal] = useState(false);
+    const [showSearchModal, setShowSearchModal] = useState(false);
 
     return (
         <div>
             <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-                <Header />
-                <Routes>
-                    <Route exact path="/cart" element={<Cart />} />
-                    <Route exact path="/" element={<Main />} />
-                    <Route exact path="/game" element={<Game />} />
-                    <Route exact path="/game/*" element={<NotFound />} />
-                    <Route exact path="/*" element={<NotFound />} />
-                </Routes>
-                <Footer />
+                <ShowSidebarModalContext.Provider value={{ showSidebarModal, setShowSidebarModal }}>
+                    <ShowSearchModalContext.Provider
+                        value={{ showSearchModal, setShowSearchModal }}>
+                        <Header />
+                        <Routes>
+                            <Route exact path="/cart" element={<Cart />} />
+                            <Route exact path="/game" element={<Game />} />
+                            <Route exact path="/game/*" element={<NotFound />} />
+                            <Route exact path="/" element={<Main />} />
+                            <Route exact path="/*" element={<NotFound />} />
+                        </Routes>
+                        <Footer />
+                    </ShowSearchModalContext.Provider>
+                </ShowSidebarModalContext.Provider>
             </SearchContext.Provider>
         </div>
     );

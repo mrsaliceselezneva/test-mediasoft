@@ -12,6 +12,12 @@
     align-items: center;
     border-radius: 18px;
     height: 50px;
+    @media (max-width: 1030px) {
+        height: 40px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
     padding-left: 16px;
     padding-right: 16px;
     cursor: pointer;
@@ -30,6 +36,7 @@
 
 .game_type {
     @include sidebar-block(#316650);
+    background-color: #c5e080;
 }
 
 .game_type:hover {
