@@ -3,13 +3,15 @@ import styles from './Sort.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { setNameSort, setTypeSort, setOrderSort } from '../../redux/slices/sortSlice';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function Sort() {
     const dispatch = useDispatch();
     const { nameSort } = useSelector((state) => state.sortReducer);
-    const [showPoopup, setShowPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+
+    const sortRef = useRef();
 
     const sortList = [
         {
@@ -39,25 +41,34 @@ function Sort() {
         },
     ];
 
+    useEffect(() => {
+        document.body.addEventListener('click', (event) => {
+            console.log(event.path.includes(sortRef.current));
+            if (!event.path.includes(sortRef.current)) {
+                setShowPopup(false);
+            }
+        });
+    }, []);
+
     return (
         <div className={styles.wrapper}>
-            <div className={styles.sort}>
+            <div className={styles.sort} ref={sortRef}>
                 Сортировать по:
-                <div onClick={() => setShowPopup(!showPoopup)} className={styles.sort__now}>
+                <div onClick={() => setShowPopup(!showPopup)} className={styles.sort__now}>
                     {nameSort}
-                    {showPoopup ? (
+                    {showPopup ? (
                         <FiChevronUp className={styles.sort__now__fichevron} />
                     ) : (
                         <FiChevronDown className={styles.sort__now__fichevron} />
                     )}
                 </div>
-                {showPoopup && (
+                {showPopup && (
                     <ul className={styles.sort__popup}>
                         {sortList.map((element, id) => (
                             <li
                                 key={element.nameSort}
                                 onClick={() => {
-                                    setShowPopup(!showPoopup);
+                                    setShowPopup(!showPopup);
                                     dispatch(setNameSort(element.nameSort));
                                     dispatch(setTypeSort(element.typeSort));
                                     dispatch(setOrderSort(element.orderSort));

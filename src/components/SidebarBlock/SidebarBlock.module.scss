@@ -25,6 +25,7 @@
 }
 
 .select_game_type {
+    text-decoration: none;
     @include sidebar_block(#c5e080);
     background-color: #316650;
 }

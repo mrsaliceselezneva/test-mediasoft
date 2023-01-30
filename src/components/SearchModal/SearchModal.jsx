@@ -39,6 +39,7 @@ function SearchModal() {
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter') {
                                     setSearchValue(search);
+                                    setShowSearchModal(false);
                                     dispatch(setFilter('Все'));
                                     ref.current.value = '';
                                 }

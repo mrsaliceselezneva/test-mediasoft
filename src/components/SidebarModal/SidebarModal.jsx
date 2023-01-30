@@ -10,6 +10,7 @@ import { ShowSidebarModalContext } from '../../App';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/slices/filterSlice';
+import { Link } from 'react-router-dom';
 
 function SidebarModal(props) {
     const [categories, setCategories] = useState([]);
@@ -33,16 +34,21 @@ function SidebarModal(props) {
                     <div className={styles.modal__content__title}>Выберите категорию</div>
                     <div className={styles.modal__content__body}>
                         {categories.map((category, id) => (
-                            <SidebarBlock
-                                key={category}
-                                changeSelectGameType={() => {
-                                    setSearchValue('');
-                                    dispatch(setFilter(category));
-                                    setShowSidebarModal(false);
-                                }}
-                                gameType={category}
-                                select={selectFilter === category}
-                            />
+                            <Link
+                                className={styles.modal__content__body__link}
+                                to="/"
+                                key={category}>
+                                <SidebarBlock
+                                    key={category}
+                                    changeSelectGameType={() => {
+                                        setSearchValue('');
+                                        dispatch(setFilter(category));
+                                        setShowSidebarModal(false);
+                                    }}
+                                    gameType={category}
+                                    select={selectFilter === category}
+                                />
+                            </Link>
                         ))}
                     </div>
                     <div className={styles.modal__content__footer}>
