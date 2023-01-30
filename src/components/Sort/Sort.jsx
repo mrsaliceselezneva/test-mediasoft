@@ -42,12 +42,16 @@ function Sort() {
     ];
 
     useEffect(() => {
-        document.body.addEventListener('click', (event) => {
-            console.log(event.path.includes(sortRef.current));
+        const handleClickOutside = (event) => {
             if (!event.path.includes(sortRef.current)) {
                 setShowPopup(false);
             }
-        });
+        };
+        document.body.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.body.addEventListener('click', handleClickOutside);
+        };
     }, []);
 
     return (

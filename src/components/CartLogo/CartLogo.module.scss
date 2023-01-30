@@ -1,17 +1,81 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+@keyframes anim_show {
+    50% {
+        opacity: 0;
+        width: 0;
+    }
+    100% {
+        opacity: 1;
+        width: 80px;
+    }
+}
+
+@keyframes anim_hide {
+    50% {
+        opacity: 1;
+        width: 80px;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+    }
+}
+
 .background_logo {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 
     height: 50px;
     width: 50px;
     border-radius: 12px;
+    text-decoration: none;
 
     .logo {
         height: 35px;
         width: 35px;
         color: #fffff0;
         cursor: pointer;
+
+        &__notification {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff6e4a;
+            border-radius: 50%;
+            padding: 3px;
+            min-width: 12px;
+            @include text(400, 12px, 12px, #fffff0);
+
+            position: absolute;
+            top: 3px;
+            right: 0px;
+        }
+    }
+
+    .total_price {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ff6e4a;
+        border-radius: 20px;
+        padding: 3px;
+        width: 80px;
+        @include text(500, 20px, 20px, #fffff0);
+
+        position: absolute;
+        right: 35px;
+        opacity: 0;
+        transition: 2s;
     }
 }
 
@@ -20,5 +84,8 @@
 
     .logo {
         color: #316650;
+    }
+    .total_price {
+        animation: anim_show 1s linear forwards;
     }
 }
