@@ -3,40 +3,32 @@ import styles from './Cart.module.scss';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearItems } from '../../redux/slices/cartSlice';
 
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import CartGameBlock from '../../components/CartGameBlock/CartGameBlock';
 
 function Cart() {
-    const { totalCount, totalPrice } = useSelector((state) => state.cartReducer);
-
-    const [gamesList, setGamesList] = useState([]);
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/items`).then((response) => {
-            setGamesList(response.data);
-        });
-    }, []);
+    const dispatch = useDispatch();
+    const { totalCount, totalPrice, items } = useSelector((state) => state.cartReducer);
+    console.log(items);
 
     if (totalCount)
         return (
             <div className={styles.cart}>
                 <div className={styles.cart__fill}>
                     <div className={styles.cart__fill__wrapper}>
-                        <div className={styles.cart__fill__wrapper__clear}>
+                        <div
+                            className={styles.cart__fill__wrapper__clear}
+                            onClick={() => dispatch(clearItems())}>
                             Очистить корзину
                             <RiDeleteBin6Line className={styles.cart__fill__wrapper__clear__icon} />
                         </div>
                     </div>
-                    {gamesList.map((game) => (
-                        <CartGameBlock
-                            key={game.name}
-                            name={game.name}
-                            img={game.img_cart}
-                            price={game.price}
-                        />
+                    {items.map((game) => (
+                        <CartGameBlock key={game.name} id={game.id} />
                     ))}
                     <div>
                         <div className={styles.cart__fill__order_info}>
