@@ -162,6 +162,7 @@ function Main() {
                                       key={game.name}
                                       name={game.name}
                                       img={game.img}
+                                      imgCart={game.img_cart}
                                       id={game.id}
                                       price={game.price}
                                       description={game.description}

@@ -12,6 +12,7 @@ import {
     setId,
     setPrice,
 } from '../../redux/slices/gameSlice';
+import { addItem } from '../../redux/slices/cartSlice';
 
 function GameBlock(props) {
     const dispatch = useDispatch();
@@ -35,7 +36,11 @@ function GameBlock(props) {
                 />
                 <div className={styles.game_block__title}>{props.name}</div>
             </Link>
-            <div className={styles.game_block__price}>
+            <div
+                className={styles.game_block__price}
+                onClick={() => {
+                    dispatch(addItem(props));
+                }}>
                 <FaCartPlus className={styles.game_block__price__add_cart} />
                 {props.price} ₽
             </div>
