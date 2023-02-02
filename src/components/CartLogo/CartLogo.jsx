@@ -7,12 +7,12 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 
 function CartLogo() {
-    const { items, totalPrice } = useSelector((state) => state.cartReducer);
+    const { totalCount, totalPrice } = useSelector((state) => state.cartReducer);
 
     return (
         <Link className={styles.background_logo} to="/cart">
             <FiShoppingCart className={styles.logo} />
-            {items.length > 0 && <div className={styles.logo__notification}>{items.length}</div>}
+            {totalCount > 0 && <div className={styles.logo__notification}>{totalCount}</div>}
             <div className={styles.total_price}>{totalPrice} ₽</div>
         </Link>
     );

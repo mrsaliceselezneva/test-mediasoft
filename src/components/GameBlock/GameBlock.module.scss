@@ -60,12 +60,33 @@
         cursor: pointer;
 
         &__add_cart {
-            cursor: pointer;
             margin-right: 10px;
         }
     }
 
     &__price:hover {
+        background-color: rgba(49, 102, 80, 0.3);
+    }
+
+    &__to_cart {
+        text-decoration: none;
+        display: flex;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        text-align: center;
+        justify-content: center;
+        @include text(600, 18px, 16px, #fffff0);
+
+        border-radius: 18px;
+        background-color: #316650;
+        height: 18px;
+        width: 90px;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    &__to_cart:hover {
         background-color: rgba(49, 102, 80, 0.3);
     }
 }

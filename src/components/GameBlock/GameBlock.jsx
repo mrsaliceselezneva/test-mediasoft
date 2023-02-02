@@ -3,7 +3,7 @@ import styles from './GameBlock.module.scss';
 import { FaCartPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     setName,
     setImg,
@@ -16,6 +16,9 @@ import { addItem } from '../../redux/slices/cartSlice';
 
 function GameBlock(props) {
     const dispatch = useDispatch();
+    const item = useSelector((state) => state.cartReducer.items.find((obj) => obj.id === props.id));
+
+    const addedCart = item ? true : false;
 
     return (
         <div
@@ -36,14 +39,20 @@ function GameBlock(props) {
                 />
                 <div className={styles.game_block__title}>{props.name}</div>
             </Link>
-            <div
-                className={styles.game_block__price}
-                onClick={() => {
-                    dispatch(addItem(props));
-                }}>
-                <FaCartPlus className={styles.game_block__price__add_cart} />
-                {props.price} ₽
-            </div>
+            {addedCart ? (
+                <Link to="/cart" className={styles.game_block__to_cart}>
+                    В корзину
+                </Link>
+            ) : (
+                <div
+                    className={styles.game_block__price}
+                    onClick={() => {
+                        dispatch(addItem(props));
+                    }}>
+                    <FaCartPlus className={styles.game_block__price__add_cart} />
+                    {props.price} ₽
+                </div>
+            )}
         </div>
     );
 }
