@@ -4,32 +4,20 @@ import { FaCartPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    setName,
-    setImg,
-    setDescription,
-    setCategory,
-    setId,
-    setPrice,
-} from '../../redux/slices/gameSlice';
+import { setOpenGame } from '../../redux/slices/gameSlice';
 import { addItem } from '../../redux/slices/cartSlice';
 
 function GameBlock(props) {
     const dispatch = useDispatch();
-    const item = useSelector((state) => state.cartReducer.items.find((obj) => obj.id === props.id));
-
-    const addedCart = item ? true : false;
+    const addedCart = useSelector((state) =>
+        state.cartReducer.items.find((obj) => obj.id === props.id),
+    );
 
     return (
         <div
             className={styles.game_block}
             onClick={() => {
-                dispatch(setName(props.name));
-                dispatch(setImg(props.img));
-                dispatch(setDescription(props.description));
-                dispatch(setCategory(props.category));
-                dispatch(setId(props.id));
-                dispatch(setPrice(props.price));
+                dispatch(setOpenGame(props));
             }}>
             <Link to="/game" className={styles.game_block__link}>
                 <img

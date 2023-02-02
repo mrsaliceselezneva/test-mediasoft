@@ -96,6 +96,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             overflow: hidden;
+            padding: 4px;
             margin-bottom: 20px;
 
             &__category {
@@ -114,6 +115,10 @@
 
             &__category:hover {
                 background-color: rgba(49, 102, 80, 0.3);
+            }
+
+            &__category:active {
+                box-shadow: 0 0 5px 2px #316650;
             }
         }
         &__price {
@@ -143,6 +148,44 @@
 
         &__price:hover {
             background-color: rgba(49, 102, 80, 0.3);
+        }
+
+        &__price:active {
+            box-shadow: 0 0 5px 2px #316650;
+        }
+
+        &__to_cart {
+            text-decoration: none;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            @include text(600, 18px, 16px, #fffff0);
+
+            border-radius: 18px;
+            background-color: #316650;
+            height: 18px;
+            width: 90px;
+
+            @media (max-width: 1030px) {
+                width: 16%;
+                margin-left: 10px;
+            }
+            padding: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+
+            &__add_cart {
+                cursor: pointer;
+                margin-right: 10px;
+            }
+        }
+
+        &__to_cart:hover {
+            background-color: rgba(49, 102, 80, 0.3);
+        }
+
+        &__to_cart:active {
+            box-shadow: 0 0 5px 2px #316650;
         }
     }
 }

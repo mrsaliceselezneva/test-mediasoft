@@ -68,6 +68,10 @@
         background-color: rgba(49, 102, 80, 0.3);
     }
 
+    &__price:active {
+        box-shadow: 0 0 5px 2px #316650;
+    }
+
     &__to_cart {
         text-decoration: none;
         display: flex;
@@ -88,5 +92,9 @@
 
     &__to_cart:hover {
         background-color: rgba(49, 102, 80, 0.3);
+    }
+
+    &__to_cart:active {
+        box-shadow: 0 0 5px 2px #316650;
     }
 }

@@ -9,6 +9,8 @@ import { SearchContext } from '../../App';
 import React, { useContext, useLayoutEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { addItem } from '../../redux/slices/cartSlice';
+
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
 
@@ -24,39 +26,50 @@ function useWindowSize() {
 }
 
 function Game() {
+    const dispatch = useDispatch();
+    const { openGame } = useSelector((state) => state.gameReducer);
+    const addedCart = useSelector((state) =>
+        state.cartReducer.items.find((obj) => obj.id === openGame.id),
+    );
+
     const { setSearchValue } = useContext(SearchContext);
     const width = useWindowSize();
-
-    const { name, img, description, category, id, price } = useSelector(
-        (state) => state.gameReducer,
-    );
-    const dispatch = useDispatch();
 
     if (width > 1030)
         return (
             <div className={styles.wrapper}>
                 <div className={styles.name}>
-                    <div className={styles.name__title}>{name}</div>
+                    <div className={styles.name__title}>{openGame.name}</div>
                 </div>
                 <div className={styles.game}>
                     <div className={styles.game__body}>
                         <img
                             className={styles.game__body__img}
-                            src={img}
+                            src={openGame.img}
                             alt={'здесь скоро будет изображение'}
                         />
                         <div className={styles.title}>Описание</div>
-                        <div className={styles.game__body__description}>{description}</div>
+                        <div className={styles.game__body__description}>{openGame.description}</div>
                     </div>
                     <div className={styles.game__side}>
                         <div className={styles.title}>Добавить в корзину</div>
-                        <div className={styles.game__side__price}>
-                            <FaCartPlus className={styles.game__side__price__add_cart} />
-                            {price} ₽
-                        </div>
+                        {addedCart ? (
+                            <Link to="/cart" className={styles.game__side__to_cart}>
+                                В корзину
+                            </Link>
+                        ) : (
+                            <div
+                                className={styles.game__side__price}
+                                onClick={() => {
+                                    dispatch(addItem(openGame));
+                                }}>
+                                <FaCartPlus className={styles.game__side__price__add_cart} />
+                                {openGame.price} ₽
+                            </div>
+                        )}
                         <div className={styles.title}>Категории</div>
                         <div className={styles.game__side__categories}>
-                            {category.map((element, id) =>
+                            {openGame.category.map((element, id) =>
                                 element !== 'Все' ? (
                                     <Link
                                         to="/"
@@ -79,22 +92,32 @@ function Game() {
         return (
             <div className={styles.wrapper}>
                 <div className={styles.name}>
-                    <div className={styles.name__title}>{name}</div>
-                    <div className={styles.game__side__price}>
-                        <FaCartPlus className={styles.game__side__price__add_cart} />
-                        {price} ₽
-                    </div>
+                    <div className={styles.name__title}>{openGame.name}</div>
+                    {addedCart ? (
+                        <Link to="/cart" className={styles.game__side__to_cart}>
+                            В корзину
+                        </Link>
+                    ) : (
+                        <div
+                            className={styles.game__side__price}
+                            onClick={() => {
+                                dispatch(addItem(openGame));
+                            }}>
+                            <FaCartPlus className={styles.game__side__price__add_cart} />
+                            {openGame.price} ₽
+                        </div>
+                    )}
                 </div>
                 <div className={styles.game}>
                     <div className={styles.game__body}>
                         <img
                             className={styles.game__body__img}
-                            src={img}
+                            src={openGame.img}
                             alt={'здесь скоро будет изображение'}
                         />
                         <div className={styles.title}>Категории</div>
                         <div className={styles.game__side__categories}>
-                            {category.map((element, id) =>
+                            {openGame.category.map((element, id) =>
                                 element !== 'Все' ? (
                                     <Link
                                         to="/"
@@ -110,7 +133,7 @@ function Game() {
                             )}
                         </div>
                         <div className={styles.title}>Описание</div>
-                        <div className={styles.game__body__description}>{description}</div>
+                        <div className={styles.game__body__description}>{openGame.description}</div>
                     </div>
                 </div>
             </div>

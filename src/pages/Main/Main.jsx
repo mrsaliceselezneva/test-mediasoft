@@ -143,6 +143,7 @@ function Main() {
                         <img
                             className={styles.main__body__not_found__img}
                             src="img/dragon_not_found.png"
+                            alt="dragon_not_found"
                         />
                     </div>
                 </div>
@@ -162,7 +163,7 @@ function Main() {
                                       key={game.name}
                                       name={game.name}
                                       img={game.img}
-                                      imgCart={game.img_cart}
+                                      img_cart={game.img_cart}
                                       id={game.id}
                                       price={game.price}
                                       description={game.description}
