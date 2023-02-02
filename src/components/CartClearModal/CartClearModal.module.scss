@@ -1,0 +1,86 @@
+@mixin text($a, $b, $c, $d) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $a;
+    font-size: $b;
+    line-height: $c;
+    color: $d;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 90vw;
+        height: auto;
+        background-color: #fffff0;
+        border-radius: 18px;
+        padding: 10px;
+
+        &__title {
+            @include text(700, 24px, 26px, #316650);
+            margin-bottom: 10px;
+        }
+        &__body {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            overflow: hidden;
+            margin: 10px;
+            border-radius: 20px;
+
+            &__link {
+                text-decoration: none;
+            }
+        }
+        &__footer {
+            &__clear {
+                text-align: center;
+                width: 100px;
+                margin-left: 5px;
+                margin-right: 5px;
+                @include text(500, 18px, 22px, #fffff0);
+                margin-bottom: 5%;
+                border: none;
+                border-radius: 20px;
+                padding: 2px;
+                background-color: #ff6e4a;
+            }
+
+            &__clear:hover {
+                background-color: rgba(49, 102, 80, 0.3);
+            }
+
+            &__close {
+                text-align: center;
+                width: 100px;
+                margin-left: 5px;
+                margin-right: 5px;
+                @include text(500, 18px, 22px, #316650);
+                margin-bottom: 5%;
+                border: none;
+                border-radius: 20px;
+                padding: 2px;
+                background-color: #c5e080;
+            }
+
+            &__close:hover {
+                background-color: rgba(49, 102, 80, 0.3);
+            }
+        }
+    }
+}

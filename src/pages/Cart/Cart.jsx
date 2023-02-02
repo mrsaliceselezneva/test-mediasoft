@@ -10,19 +10,31 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import CartGameBlock from '../../components/CartGameBlock/CartGameBlock';
 
+import CartClearModal from '../../components/CartClearModal/CartClearModal';
+
 function Cart() {
+    const [showCartClearModal, setShowCartClearModal] = useState(false);
+
     const dispatch = useDispatch();
     const { totalCount, totalPrice, items } = useSelector((state) => state.cartReducer);
-    console.log(items);
 
     if (totalCount)
         return (
             <div className={styles.cart}>
+                <CartClearModal
+                    title={'Вы точно хотите очистить корзину?'}
+                    showCartClearModal={showCartClearModal}
+                    onClose={() => setShowCartClearModal(false)}
+                    clear={() => {
+                        dispatch(clearItems());
+                        setShowCartClearModal(false);
+                    }}
+                />
                 <div className={styles.cart__fill}>
                     <div className={styles.cart__fill__wrapper}>
                         <div
                             className={styles.cart__fill__wrapper__clear}
-                            onClick={() => dispatch(clearItems())}>
+                            onClick={() => setShowCartClearModal(true)}>
                             Очистить корзину
                             <RiDeleteBin6Line className={styles.cart__fill__wrapper__clear__icon} />
                         </div>
