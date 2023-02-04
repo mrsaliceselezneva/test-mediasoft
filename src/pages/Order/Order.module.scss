@@ -1,0 +1,177 @@
+@mixin text($w, $s, $l, $c) {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: $w;
+    font-size: $s;
+    line-height: $l;
+    color: $c;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(280px * 4 + 30px * 3);
+    @media (max-width: 1400px) {
+        width: calc(280px * 3 + 30px * 2);
+    }
+    @media (max-width: 1030px) {
+        width: calc(280px * 2 + 30px * 1);
+    }
+    @media (max-width: 620px) {
+        width: calc(280px * 1 + 30px * 0);
+    }
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    min-height: 100vh;
+    margin-bottom: 40px;
+}
+
+.title {
+    @include text(600, 22px, 22px, #316650);
+    margin-bottom: 10px;
+    margin-left: 16px;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+
+    &__personal {
+        display: flex;
+        flex-direction: column;
+        background-color: #c5e080;
+        width: 400px;
+        padding: 10px 10px 0 10px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+
+        &__background {
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+            border: solid 2px rgba(49, 102, 80, 0.3);
+            background-color: #fffff0;
+            height: 40px;
+
+            padding-left: 16px;
+            padding-right: 16px;
+            margin-bottom: 10px;
+
+            &__input {
+                width: 100%;
+                background-color: #316650;
+                border: none;
+                background: none;
+                @include text(200, 20px, 20px, #a6acbe);
+            }
+
+            &__input:focus {
+                outline: none !important;
+                border: none;
+            }
+
+            &__input:hover {
+                color: #316650;
+            }
+        }
+    }
+
+    &__payment {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding: 10px 10px 0 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        height: 210px;
+
+        &__img_block {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+
+            &__img_bank {
+                min-height: 60px;
+                height: auto;
+                width: 60%;
+                background-size: cover;
+            }
+
+            &__img_brand {
+                width: 16%;
+                background-size: cover;
+            }
+        }
+
+        &__background {
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+            border: solid 2px rgba(49, 102, 80, 0.3);
+            background-color: #fffff0;
+            height: 40px;
+            padding-left: 16px;
+            padding-right: 16px;
+            margin-bottom: 10px;
+
+            &__input {
+                width: 100%;
+                background-color: #316650;
+                border: none;
+                background: none;
+                @include text(200, 20px, 20px, #a6acbe);
+            }
+
+            &__input:focus {
+                outline: none !important;
+                border: none;
+            }
+
+            &__input:hover {
+                color: #316650;
+            }
+        }
+
+        &__bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            &__background {
+                display: flex;
+                align-items: center;
+                border-radius: 20px;
+                border: solid 2px rgba(49, 102, 80, 0.3);
+                background-color: #fffff0;
+                height: 40px;
+                width: 50px;
+
+                padding-left: 16px;
+                padding-right: 16px;
+                margin-bottom: 10px;
+
+                &__input {
+                    width: 100%;
+                    background-color: #316650;
+                    border: none;
+                    background: none;
+                    @include text(200, 20px, 20px, #a6acbe);
+                }
+
+                &__input:focus {
+                    outline: none !important;
+                    border: none;
+                }
+
+                &__input:hover {
+                    color: #316650;
+                }
+            }
+        }
+    }
+}

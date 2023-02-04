@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 
 import Main from './pages/Main/Main';
 import Cart from './pages/Cart/Cart';
+import Order from './pages/Order/Order';
 import NotFound from './pages/NotFound/NotFound';
 import Game from './pages/Game/Game';
 
@@ -29,6 +30,7 @@ function App() {
                         <Header />
                         <Routes>
                             <Route exact path="/cart" element={<Cart />} />
+                            <Route exact path="/order" element={<Order />} />
                             <Route exact path="/game" element={<Game />} />
                             <Route exact path="/game/*" element={<NotFound />} />
                             <Route exact path="/" element={<Main />} />

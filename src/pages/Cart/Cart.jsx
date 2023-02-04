@@ -64,9 +64,9 @@ function Cart() {
                                     </div>
                                 </div>
                             </div>
-                            <button className={styles.cart__fill__order_info__order}>
+                            <Link to="/order" className={styles.cart__fill__order_info__order}>
                                 Заказать
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
