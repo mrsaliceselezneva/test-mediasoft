@@ -3,11 +3,19 @@ import styles from './Order.module.scss';
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import { RiDeleteBin6Line } from 'react-icons/ri';
+
+import MapBlock from '../../components/MapBlock/MapBlock';
 
 import CardInfo from 'card-info';
 
+import { YMaps } from '@pbe/react-yandex-maps';
+
 function Order() {
+    const { totalCount } = useSelector((state) => state.cartReducer);
+
     const nameRef = useRef(null);
     const lastnameRef = useRef(null);
     const patronymicRef = useRef(null);
@@ -16,6 +24,8 @@ function Order() {
     const cardNumberRef = useRef(null);
     const cardDateRef = useRef(null);
     const cardCvcRef = useRef(null);
+    const [street, setStreet] = useState('');
+    const [house, setHouse] = useState('');
 
     const [pathBankLogo, setPathBankLogo] = useState('');
     const [pathBrandLogo, setPathBrandLogo] = useState('');
@@ -62,12 +72,12 @@ function Order() {
 
         var cardInfo = new CardInfo(maskBank, {
             banksLogosPath: '/node_modules/card-info/dist/banks-logos/',
-            brandsLogosPath: '/node_modules/card-info/dist/banks-logos/',
+            brandsLogosPath: '/node_modules/card-info/dist/brands-logos/',
         });
         console.log(cardInfo);
         if (cardInfo.bankName) {
             setPathBankLogo(cardInfo.bankLogoPng.slice(lenPathBanksLogos));
-            setPathBrandLogo(cardInfo.brandLogoPng.slice(lenPathBanksLogos));
+            setPathBrandLogo(cardInfo.brandLogoPng.slice(lenPathBrandsLogos));
             setBankColor(cardInfo.backgroundGradient);
         } else {
             setPathBankLogo('');
@@ -93,126 +103,158 @@ function Order() {
         return `${val.slice(0, 3)}`;
     }
 
-    return (
-        <div className={styles.wrapper}>
-            <form className={styles.order}>
-                <div className={styles.order__personal}>
-                    <div className={styles.title}>Контактные данные</div>
-                    <div className={styles.order__personal__background}>
-                        <input
-                            className={styles.order__personal__background__input}
-                            type="text"
-                            placeholder="Фамилия"
-                            ref={lastnameRef}
-                            onChange={() =>
-                                (lastnameRef.current.value = normalizeText(
-                                    lastnameRef.current.value,
-                                ))
-                            }
-                        />
-                    </div>
-                    <div className={styles.order__personal__background}>
-                        <input
-                            className={styles.order__personal__background__input}
-                            type="text"
-                            placeholder="Имя"
-                            ref={nameRef}
-                            onChange={() =>
-                                (nameRef.current.value = normalizeText(nameRef.current.value))
-                            }
-                        />
-                    </div>
-                    <div className={styles.order__personal__background}>
-                        <input
-                            className={styles.order__personal__background__input}
-                            type="text"
-                            placeholder="Отчество"
-                            ref={patronymicRef}
-                            onChange={() =>
-                                (patronymicRef.current.value = normalizeText(
-                                    patronymicRef.current.value,
-                                ))
-                            }
-                        />
-                    </div>
-                    <div className={styles.order__personal__background}>
-                        <input
-                            className={styles.order__personal__background__input}
-                            type="tel"
-                            placeholder="Телефон"
-                            ref={phoneRef}
-                            onChange={() => {
-                                phoneRef.current.value = normalizePhone();
-                            }}
-                        />
-                    </div>
-                    <div className={styles.order__personal__background}>
-                        <input
-                            className={styles.order__personal__background__input}
-                            type="email"
-                            placeholder="Почта"
-                            ref={emailRef}
-                        />
-                    </div>
-                </div>
-                <div
-                    className={styles.order__payment}
-                    style={{
-                        background: bankColor,
-                    }}>
-                    <div className={styles.title}>Оплата картой</div>
-                    <div className={styles.order__payment__img_block}>
-                        <img
-                            className={styles.order__payment__img_block__img_bank}
-                            src={
-                                pathBankLogo
-                                    ? require(`/node_modules/card-info/dist/banks-logos/${pathBankLogo}`)
-                                    : ''
-                            }
-                        />
-                        <img
-                            className={styles.order__payment__img_block__img_brand}
-                            src={
-                                pathBrandLogo
-                                    ? require(`/node_modules/card-info/dist/brands-logos/${pathBrandLogo}`)
-                                    : ''
-                            }
-                        />
-                    </div>
-                    <div className={styles.order__payment__background}>
-                        <input
-                            className={styles.order__payment__background__input}
-                            type="text"
-                            placeholder="Номер"
-                            ref={cardNumberRef}
-                            onChange={() => (cardNumberRef.current.value = normalizeCardNumber())}
-                        />
-                    </div>
-                    <div className={styles.order__payment__bottom}>
-                        <div className={styles.order__payment__bottom__background}>
+    if (totalCount)
+        return (
+            <div className={styles.wrapper}>
+                <form className={styles.order}>
+                    <div className={styles.order__personal}>
+                        <div className={styles.title}>Контактные данные</div>
+                        <div className={styles.order__personal__background}>
                             <input
-                                className={styles.order__payment__bottom__background__input}
+                                className={styles.order__personal__background__input}
                                 type="text"
-                                placeholder="Дата"
-                                ref={cardDateRef}
-                                onChange={() => (cardDateRef.current.value = normalizeCardDate())}
+                                placeholder="Фамилия"
+                                ref={lastnameRef}
+                                onChange={() =>
+                                    (lastnameRef.current.value = normalizeText(
+                                        lastnameRef.current.value,
+                                    ))
+                                }
                             />
                         </div>
-                        <div className={styles.order__payment__bottom__background}>
+                        <div className={styles.order__personal__background}>
                             <input
-                                className={styles.order__payment__bottom__background__input}
+                                className={styles.order__personal__background__input}
                                 type="text"
-                                placeholder="CVC"
-                                ref={cardCvcRef}
-                                onChange={() => (cardCvcRef.current.value = normalizeCardCvc())}
+                                placeholder="Имя"
+                                ref={nameRef}
+                                onChange={() =>
+                                    (nameRef.current.value = normalizeText(nameRef.current.value))
+                                }
+                            />
+                        </div>
+                        <div className={styles.order__personal__background}>
+                            <input
+                                className={styles.order__personal__background__input}
+                                type="text"
+                                placeholder="Отчество"
+                                ref={patronymicRef}
+                                onChange={() =>
+                                    (patronymicRef.current.value = normalizeText(
+                                        patronymicRef.current.value,
+                                    ))
+                                }
+                            />
+                        </div>
+                        <div className={styles.order__personal__background}>
+                            <input
+                                className={styles.order__personal__background__input}
+                                type="tel"
+                                placeholder="Телефон"
+                                ref={phoneRef}
+                                onChange={() => {
+                                    phoneRef.current.value = normalizePhone();
+                                }}
+                            />
+                        </div>
+                        <div className={styles.order__personal__background}>
+                            <input
+                                className={styles.order__personal__background__input}
+                                type="email"
+                                placeholder="Почта"
+                                ref={emailRef}
                             />
                         </div>
                     </div>
+                    <div
+                        className={styles.order__payment}
+                        style={{
+                            background: bankColor,
+                        }}>
+                        <div className={styles.title}>Оплата картой</div>
+                        <div className={styles.order__payment__img_block}>
+                            <img
+                                className={styles.order__payment__img_block__img_bank}
+                                src={
+                                    pathBankLogo
+                                        ? require(`/node_modules/card-info/dist/banks-logos/${pathBankLogo}`)
+                                        : ''
+                                }
+                            />
+                            <img
+                                className={styles.order__payment__img_block__img_brand}
+                                src={
+                                    pathBrandLogo
+                                        ? require(`/node_modules/card-info/dist/brands-logos/${pathBrandLogo}`)
+                                        : ''
+                                }
+                            />
+                        </div>
+                        <div className={styles.order__payment__background}>
+                            <input
+                                className={styles.order__payment__background__input}
+                                type="text"
+                                placeholder="Номер"
+                                ref={cardNumberRef}
+                                onChange={() =>
+                                    (cardNumberRef.current.value = normalizeCardNumber())
+                                }
+                            />
+                        </div>
+                        <div className={styles.order__payment__bottom}>
+                            <div className={styles.order__payment__bottom__background}>
+                                <input
+                                    className={styles.order__payment__bottom__background__input}
+                                    type="text"
+                                    placeholder="Дата"
+                                    ref={cardDateRef}
+                                    onChange={() =>
+                                        (cardDateRef.current.value = normalizeCardDate())
+                                    }
+                                />
+                            </div>
+                            <div className={styles.order__payment__bottom__background}>
+                                <input
+                                    className={styles.order__payment__bottom__background__input}
+                                    type="text"
+                                    placeholder="CVC"
+                                    ref={cardCvcRef}
+                                    onChange={() => (cardCvcRef.current.value = normalizeCardCvc())}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.order__adress}>
+                        <YMaps
+                            query={{
+                                ns: 'use-load-option',
+                                load: 'package.full',
+                                apikey: `${process.env.REACT_APP_API_MAP}`,
+                            }}>
+                            <MapBlock setStreet={setStreet} setHouse={setHouse} />
+                        </YMaps>
+                    </div>
+                    <input className={styles.order__button} type="button" value="Заказать" />
+                </form>
+            </div>
+        );
+    else
+        return (
+            <div className={styles.cart}>
+                <div className={styles.cart__empty}>
+                    <div className={styles.cart__empty__text}>Корзина пуста</div>
+                    <div className={styles.cart__empty__text}>Выберите игры и возвращайтесь</div>
+                    <Link to="/" className={styles.cart__empty__link}>
+                        <button className={styles.cart__empty__link__button}>За покупками</button>
+                        <img
+                            className={styles.cart__empty__link__img}
+                            src="img/dragon_empty_cart.png"
+                            alt="dragon_empty_cart"
+                        />
+                    </Link>
                 </div>
-                <div className={styles.order__adress}></div>
-            </form>
-        </div>
-    );
+            </div>
+        );
 }
 
 export default Order;

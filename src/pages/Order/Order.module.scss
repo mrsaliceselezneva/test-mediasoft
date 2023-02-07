@@ -37,6 +37,8 @@
 .order {
     display: flex;
     flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
 
     &__personal {
         display: flex;
@@ -170,6 +172,94 @@
 
                 &__input:hover {
                     color: #316650;
+                }
+            }
+        }
+    }
+
+    &__adress {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding: 10px 10px 0 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        height: 400px;
+    }
+
+    &__button {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 20px;
+        border: none;
+        height: 40px;
+        width: 30%;
+        background-color: #c5e080;
+        @include text(500, 18px, 16px, #316650);
+    }
+
+    &__button:hover {
+        background-color: rgba(49, 102, 80, 0.3);
+    }
+
+    &__button:active {
+        box-shadow: 0 0 5px 2px #316650;
+    }
+}
+
+.cart {
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 160px);
+    margin-bottom: 10px;
+
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        margin-top: 80px;
+
+        &__text {
+            @include text(600, 20px, 16px, #316650);
+            margin-bottom: 10px;
+        }
+
+        &__link {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+
+            &__button {
+                margin-top: 10px;
+                border-radius: 20px;
+                border: none;
+                height: 40px;
+                background-color: #c5e080;
+                @include text(500, 18px, 16px, #316650);
+            }
+
+            &__button:hover {
+                background-color: rgba(49, 102, 80, 0.3);
+            }
+
+            &__button:active {
+                box-shadow: 0 0 5px 2px #316650;
+            }
+
+            &__img {
+                margin-top: 10px;
+                $img_width_div: 3;
+                width: calc((280px * 3 + 30px * 2) / $img_width_div);
+                @media (max-width: 1400px) {
+                    width: calc((280px * 2 + 30px * 1) / $img_width_div);
+                }
+                @media (max-width: 1030px) {
+                    width: calc((280px * 2 + 30px * 1) / $img_width_div);
+                }
+                @media (max-width: 620px) {
+                    width: calc((280px * 1 + 30px * 0) / $img_width_div);
                 }
             }
         }
