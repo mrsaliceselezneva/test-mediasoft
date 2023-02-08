@@ -3,9 +3,8 @@ import styles from './Order.module.scss';
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearItems } from '../../redux/slices/cartSlice';
 
 import MapBlock from '../../components/MapBlock/MapBlock';
 
@@ -14,6 +13,7 @@ import CardInfo from 'card-info';
 import { YMaps } from '@pbe/react-yandex-maps';
 
 function Order() {
+    const dispatch = useDispatch();
     const { totalCount } = useSelector((state) => state.cartReducer);
 
     const nameRef = useRef(null);
@@ -35,6 +35,8 @@ function Order() {
     const [incorrectCardDate, setIncorrectCardDate] = useState(false);
     const [incorrectCardCvc, setIncorrectCardCVC] = useState(false);
     const [incorrectAddress, setIncorrectAddress] = useState(false);
+
+    const [orderedSuccessfully, setOrderedSuccesfully] = useState(false);
 
     const [pathBankLogo, setPathBankLogo] = useState('');
     const [pathBrandLogo, setPathBrandLogo] = useState('');
@@ -140,6 +142,19 @@ function Order() {
         if (cardCvcRef.current.value.length < 3) setIncorrectCardCVC(true);
         if (!street) setIncorrectAddress(true);
         if (!house) setIncorrectAddress(true);
+        if (
+            !incorrectName &&
+            !incorrectLastname &&
+            !incorrectPhone &&
+            !incorrectEmail &&
+            !incorrectCardNumber &&
+            !incorrectCardDate &&
+            !incorrectCardCvc &&
+            !incorrectAddress
+        ) {
+            setOrderedSuccesfully(true);
+            dispatch(clearItems());
+        }
     }
 
     if (totalCount)
@@ -263,7 +278,7 @@ function Order() {
                         </div>
                         <div className={styles.order__payment__bottom_incorrect}>
                             <div className={incorrectCardDate ? styles.incorrect : styles.correct}>
-                                {incorrectCardDate ? 'Неправильно введенна дата' : 'Срок действия'}
+                                {incorrectCardDate ? 'Неправильно введена дата' : 'Срок действия'}
                             </div>
                             <div className={incorrectCardCvc ? styles.incorrect : styles.correct}>
                                 {incorrectCardCvc ? 'Неправильно введён код' : 'CVC/CVV'}
@@ -319,6 +334,25 @@ function Order() {
                         onClick={() => checkOrder()}
                     />
                 </form>
+            </div>
+        );
+    else if (orderedSuccessfully)
+        return (
+            <div className={styles.cart}>
+                <div className={styles.cart__empty}>
+                    <div className={styles.cart__empty__text}>Заказ оформлен!</div>
+                    <div className={styles.cart__empty__text}>
+                        Спасибо за заказ) Ждём Вас снова!
+                    </div>
+                    <Link to="/" className={styles.cart__empty__link}>
+                        <button className={styles.cart__empty__link__button}>За покупками</button>
+                        <img
+                            className={styles.cart__empty__link__img}
+                            src="img/dragon_love.png"
+                            alt="dragon_love"
+                        />
+                    </Link>
+                </div>
             </div>
         );
     else
