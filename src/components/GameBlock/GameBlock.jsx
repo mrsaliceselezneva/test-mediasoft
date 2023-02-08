@@ -12,6 +12,7 @@ function GameBlock(props) {
     const addedCart = useSelector((state) =>
         state.cartReducer.items.find((obj) => obj.id === props.id),
     );
+    // const { totalCount, totalPrice, items } = useSelector((state) => state.cartReducer);
 
     return (
         <div

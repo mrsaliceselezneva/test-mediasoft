@@ -27,6 +27,15 @@ function Order() {
     const [street, setStreet] = useState('');
     const [house, setHouse] = useState('');
 
+    const [incorrectName, setIncorrectName] = useState(false);
+    const [incorrectLastname, setIncorrectLastname] = useState(false);
+    const [incorrectPhone, setIncorrectPhone] = useState(false);
+    const [incorrectEmail, setIncorrectEmail] = useState(false);
+    const [incorrectCardNumber, setIncorrectCardNumber] = useState(false);
+    const [incorrectCardDate, setIncorrectCardDate] = useState(false);
+    const [incorrectCardCvc, setIncorrectCardCVC] = useState(false);
+    const [incorrectAddress, setIncorrectAddress] = useState(false);
+
     const [pathBankLogo, setPathBankLogo] = useState('');
     const [pathBrandLogo, setPathBrandLogo] = useState('');
     const lenPathBanksLogos = '/node_modules/card-info/dist/banks-logos/'.length;
@@ -50,10 +59,6 @@ function Order() {
         return `+7 (${val.slice(0, 3)}) ${val.slice(3, 6)}-${val.slice(6, 10)}`;
     }
 
-    function normalizeEmail() {
-        console.log(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(emailRef.current.value));
-    }
-
     function normalizeCardNumber() {
         if (!cardNumberRef.current.value) return '';
         const val = cardNumberRef.current.value.replace(/[^\d]/g, '');
@@ -74,7 +79,6 @@ function Order() {
             banksLogosPath: '/node_modules/card-info/dist/banks-logos/',
             brandsLogosPath: '/node_modules/card-info/dist/brands-logos/',
         });
-        console.log(cardInfo);
         if (cardInfo.bankName) {
             setPathBankLogo(cardInfo.bankLogoPng.slice(lenPathBanksLogos));
             setPathBrandLogo(cardInfo.brandLogoPng.slice(lenPathBrandsLogos));
@@ -103,12 +107,50 @@ function Order() {
         return `${val.slice(0, 3)}`;
     }
 
+    function checkEmail() {
+        return !/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(emailRef.current.value);
+    }
+
+    function checkCardNumber() {
+        if (cardNumberRef.current.value.length < 19) return false;
+        const val =
+            cardNumberRef.current.value.slice(0, 4) +
+            cardNumberRef.current.value.slice(5, 9) +
+            cardNumberRef.current.value.slice(10, 14) +
+            cardNumberRef.current.value.slice(15, 19);
+        return !/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/.test(
+            val,
+        );
+    }
+
+    function checkCardDate() {
+        const val = '1/' + cardDateRef.current.value;
+        return !/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/.test(
+            val,
+        );
+    }
+
+    function checkOrder() {
+        if (nameRef.current.value.length < 2) setIncorrectName(true);
+        if (lastnameRef.current.value < 2) setIncorrectLastname(true);
+        if (phoneRef.current.value.length < 17) setIncorrectPhone(true);
+        if (checkEmail()) setIncorrectEmail(true);
+        if (checkCardNumber()) setIncorrectCardNumber(true);
+        if (checkCardDate()) setIncorrectCardDate(true);
+        if (cardCvcRef.current.value.length < 3) setIncorrectCardCVC(true);
+        if (!street) setIncorrectAddress(true);
+        if (!house) setIncorrectAddress(true);
+    }
+
     if (totalCount)
         return (
             <div className={styles.wrapper}>
                 <form className={styles.order}>
                     <div className={styles.order__personal}>
                         <div className={styles.title}>Контактные данные</div>
+                        <div className={incorrectLastname ? styles.incorrect : styles.correct}>
+                            {incorrectLastname ? 'Неправильно введена фамилия' : 'Фамилия'}
+                        </div>
                         <div className={styles.order__personal__background}>
                             <input
                                 className={styles.order__personal__background__input}
@@ -120,7 +162,11 @@ function Order() {
                                         lastnameRef.current.value,
                                     ))
                                 }
+                                onClick={() => setIncorrectLastname(false)}
                             />
+                        </div>
+                        <div className={incorrectName ? styles.incorrect : styles.correct}>
+                            {incorrectName ? 'Неправильно введено имя' : 'Имя'}
                         </div>
                         <div className={styles.order__personal__background}>
                             <input
@@ -131,8 +177,10 @@ function Order() {
                                 onChange={() =>
                                     (nameRef.current.value = normalizeText(nameRef.current.value))
                                 }
+                                onClick={() => setIncorrectName(false)}
                             />
                         </div>
+                        <div className={styles.correct}>Отчество</div>
                         <div className={styles.order__personal__background}>
                             <input
                                 className={styles.order__personal__background__input}
@@ -146,6 +194,9 @@ function Order() {
                                 }
                             />
                         </div>
+                        <div className={incorrectPhone ? styles.incorrect : styles.correct}>
+                            {incorrectPhone ? 'Неправильно введён телефон' : 'Телефон'}
+                        </div>
                         <div className={styles.order__personal__background}>
                             <input
                                 className={styles.order__personal__background__input}
@@ -155,7 +206,11 @@ function Order() {
                                 onChange={() => {
                                     phoneRef.current.value = normalizePhone();
                                 }}
+                                onClick={() => setIncorrectPhone(false)}
                             />
+                        </div>
+                        <div className={incorrectEmail ? styles.incorrect : styles.correct}>
+                            {incorrectEmail ? 'Нерпавильно введена почта' : 'Почта'}
                         </div>
                         <div className={styles.order__personal__background}>
                             <input
@@ -163,6 +218,7 @@ function Order() {
                                 type="email"
                                 placeholder="Почта"
                                 ref={emailRef}
+                                onClick={() => setIncorrectEmail(false)}
                             />
                         </div>
                     </div>
@@ -190,6 +246,9 @@ function Order() {
                                 }
                             />
                         </div>
+                        <div className={incorrectCardNumber ? styles.incorrect : styles.correct}>
+                            {incorrectCardNumber ? 'Неправильно введён номер карты' : 'Номер карты'}
+                        </div>
                         <div className={styles.order__payment__background}>
                             <input
                                 className={styles.order__payment__background__input}
@@ -199,7 +258,16 @@ function Order() {
                                 onChange={() =>
                                     (cardNumberRef.current.value = normalizeCardNumber())
                                 }
+                                onClick={() => setIncorrectCardNumber(false)}
                             />
+                        </div>
+                        <div className={styles.order__payment__bottom_incorrect}>
+                            <div className={incorrectCardDate ? styles.incorrect : styles.correct}>
+                                {incorrectCardDate ? 'Неправильно введенна дата' : 'Срок действия'}
+                            </div>
+                            <div className={incorrectCardCvc ? styles.incorrect : styles.correct}>
+                                {incorrectCardCvc ? 'Неправильно введён код' : 'CVC/CVV'}
+                            </div>
                         </div>
                         <div className={styles.order__payment__bottom}>
                             <div className={styles.order__payment__bottom__background}>
@@ -211,6 +279,7 @@ function Order() {
                                     onChange={() =>
                                         (cardDateRef.current.value = normalizeCardDate())
                                     }
+                                    onClick={() => setIncorrectCardDate(false)}
                                 />
                             </div>
                             <div className={styles.order__payment__bottom__background}>
@@ -220,21 +289,35 @@ function Order() {
                                     placeholder="CVC"
                                     ref={cardCvcRef}
                                     onChange={() => (cardCvcRef.current.value = normalizeCardCvc())}
+                                    onClick={() => setIncorrectCardCVC(false)}
                                 />
                             </div>
                         </div>
                     </div>
                     <div className={styles.order__adress}>
+                        <div className={styles.title}>Адрес доставки</div>
+                        <div className={incorrectAddress ? styles.incorrect : styles.correct}>
+                            {incorrectAddress ? 'Неправильно введён адрес' : 'Укажите на карте'}
+                        </div>
                         <YMaps
                             query={{
                                 ns: 'use-load-option',
                                 load: 'package.full',
                                 apikey: `${process.env.REACT_APP_API_MAP}`,
                             }}>
-                            <MapBlock setStreet={setStreet} setHouse={setHouse} />
+                            <MapBlock
+                                setIncorrectAddress={() => setIncorrectAddress(false)}
+                                setStreet={setStreet}
+                                setHouse={setHouse}
+                            />
                         </YMaps>
                     </div>
-                    <input className={styles.order__button} type="button" value="Заказать" />
+                    <input
+                        className={styles.order__button}
+                        type="button"
+                        value="Заказать"
+                        onClick={() => checkOrder()}
+                    />
                 </form>
             </div>
         );
