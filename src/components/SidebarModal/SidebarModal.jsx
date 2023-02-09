@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/slices/filterSlice';
 import { Link } from 'react-router-dom';
 
-function SidebarModal(props) {
+function SidebarModal() {
     const [categories, setCategories] = useState([]);
 
     const { setSearchValue } = useContext(SearchContext);

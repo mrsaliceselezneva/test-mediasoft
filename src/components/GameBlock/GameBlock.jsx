@@ -12,7 +12,6 @@ function GameBlock(props) {
     const addedCart = useSelector((state) =>
         state.cartReducer.items.find((obj) => obj.id === props.id),
     );
-    // const { totalCount, totalPrice, items } = useSelector((state) => state.cartReducer);
 
     return (
         <div
@@ -21,11 +20,7 @@ function GameBlock(props) {
                 dispatch(setOpenGame(props));
             }}>
             <Link to="/game" className={styles.game_block__link}>
-                <img
-                    className={styles.game_block__img}
-                    src={props.img}
-                    alt={'здесь скоро будет изображение'}
-                />
+                <img className={styles.game_block__img} src={props.img} alt={props.name} />
                 <div className={styles.game_block__title}>{props.name}</div>
             </Link>
             {addedCart ? (

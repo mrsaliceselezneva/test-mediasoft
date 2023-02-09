@@ -1,18 +1,16 @@
 import styles from './SearchModal.module.scss';
 
-import React, { useEffect, useState, useContext, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useContext, useRef } from 'react';
 
 import { FiSearch } from 'react-icons/fi';
 
 import { SearchContext } from '../../App';
 import { ShowSearchModalContext } from '../../App';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setFilter } from '../../redux/slices/filterSlice';
 
 function SearchModal() {
-    const [categories, setCategories] = useState([]);
     const [search, setSearch] = useState('');
     const ref = useRef(null);
 
@@ -20,13 +18,6 @@ function SearchModal() {
     const { showSearchModal, setShowSearchModal } = useContext(ShowSearchModalContext);
 
     const dispatch = useDispatch();
-    const { selectFilter } = useSelector((state) => state.filterReducer);
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/categories`).then((response) => {
-            setCategories(response.data);
-        });
-    }, []);
 
     if (showSearchModal) {
         return (

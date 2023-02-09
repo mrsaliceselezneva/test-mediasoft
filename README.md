@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Интернет-магазин настольных игр
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Фамилия Имя
 
-## Available Scripts
+Полувесов Артём Алексеевич
 
-In the project directory, you can run:
+## Тестовое задание React
 
-### `npm start`
+Написать SPA приложение (интернет-магазин)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Описание проекта
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Это проект интернет-магазина по продаже настольных игр. Игры и категории хранятся на беке от [https://mockapi.io/](mockapi.io).
+Есть функционал сортировки, фильтрации поиска товаров, реализованна пагинация и визуализация загрузки. К сожалению, бек не может одновременно обрабатывать запрос на поиск и на фильтрацию. Поэтому при выборе поиска сбрасывается фильтрация и наоборот.
+Адаптивая вёрстка.
+При оформлении заказа есть валидация данных. Также использована библиотека `card-info` для визуализации ввода данных карты.
+При наведении на корзину появлется сумма заказа. Так сделал для экономии места. И чтобы при адаптиве не мешала.
+Так как бек не может нормально по `id` возвращать один элемент, то пришлось хранить текущий выбранный товар в `redux`. Из-за этого нельзя открыть больше одного товара.
+У каждого товара есть категории. Если у открытого товара нажать на категорию, то можно просмотреть все товары данной категории.
+Состояние запроса поиска хранию в `contex`.
+Картинки брал с бека у `Hobby Games`.
 
-### `npm test`
+## Подготовительные действия
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Чтобы запустить проект надо:
 
-### `npm run build`
+-   `git clone https://github.com/mrsaliceselezneva/test-mediasoft`
+-   открыть папку с проектом в консоли
+-   ввести в консоль команду `npm install`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Информация о доступах
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Никакие логины и пароли не нужны.
+При введении данных карты, попробуйте номер `4377730000000000`. Так как это подключённая библиотека, то там не все маски карт есть.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Как запустить проект
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Открыть паапку проекта в консоли и выполнить команду `npm start`. Если вас не перебросило в браузер, то окройте его и введите в адресную строку `http://localhost:3000` или просто нажмите на [http://localhost:3000](http://localhost:3000).

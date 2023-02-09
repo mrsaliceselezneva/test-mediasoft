@@ -1,10 +1,13 @@
 import styles from './CartGameBlock.module.scss';
 
+import { Link } from 'react-router-dom';
+
 import { FiMinusCircle, FiPlusCircle, FiXCircle } from 'react-icons/fi';
 import { useState, useLayoutEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, deleteItem, clearItem } from '../../redux/slices/cartSlice';
+import { setOpenGame } from '../../redux/slices/gameSlice';
 
 import CartClearModal from '../CartClearModal/CartClearModal';
 
@@ -32,7 +35,11 @@ function CartGameBlock(props) {
 
     if (width > 1030)
         return (
-            <div className={styles.game_block}>
+            <div
+                className={styles.game_block}
+                onClick={() => {
+                    dispatch(setOpenGame(game));
+                }}>
                 <CartClearModal
                     title={'Вы точно хотите удалить товар?'}
                     showCartClearModal={showCartClearModal}
@@ -42,13 +49,17 @@ function CartGameBlock(props) {
                         setShowCartClearModal(false);
                     }}
                 />
-                <img
-                    className={styles.game_block__img}
-                    src={game.img_cart}
-                    alt={'здесть скоро будет изображение'}
-                />
+                <Link to="/game">
+                    <img
+                        className={styles.game_block__img}
+                        src={game.img_cart}
+                        alt={game.name + '_img'}
+                    />
+                </Link>
                 <div className={styles.game_block__wrapper}>
-                    <div className={styles.game_block__wrapper__title}>{game.name}</div>
+                    <Link to="/game" className={styles.game_block__wrapper__title}>
+                        {game.name}
+                    </Link>
                     <div className={styles.game_block__wrapper__price}>{game.price} ₽</div>
                     <div className={styles.game_block__wrapper__count}>
                         <FiMinusCircle
@@ -93,13 +104,13 @@ function CartGameBlock(props) {
                         setShowCartClearModal(false);
                     }}
                 />
-                <img
-                    className={styles.game_block_little__img}
-                    src={game.img_cart}
-                    alt={'здесть скоро будет изображение'}
-                />
+                <Link to="/game" className={styles.game_block_little__img}>
+                    <img src={game.img_cart} alt={game.name + '_img'} />
+                </Link>
                 <div className={styles.game_block_little__wrapper}>
-                    <div className={styles.game_block_little__wrapper__title}>{game.name}</div>
+                    <Link to="/game" className={styles.game_block_little__wrapper__title}>
+                        {game.name}
+                    </Link>
                     <div className={styles.game_block_little__wrapper__price}>{game.price} ₽</div>
                     <div className={styles.game_block_little__wrapper__count}>
                         <FiMinusCircle

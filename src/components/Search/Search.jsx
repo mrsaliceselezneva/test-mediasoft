@@ -52,10 +52,14 @@ function Search() {
         );
     else
         return (
-            <div className={styles.background_fisearch2} onClick={() => setShowSearchModal(true)}>
+            <>
                 <SearchModal />
-                <FiSearch className={styles.fisearch2} />
-            </div>
+                <div
+                    className={styles.background_fisearch2}
+                    onClick={() => setShowSearchModal(true)}>
+                    <FiSearch className={styles.fisearch2} />
+                </div>
+            </>
         );
 }
 

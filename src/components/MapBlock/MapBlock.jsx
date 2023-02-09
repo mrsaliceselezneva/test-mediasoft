@@ -46,7 +46,7 @@ function MapBlock(props) {
                         nearest.options.set('preset', 'islands#redStretchyIcon');
                         myMap.geoObjects.add(nearest);
                     },
-                    function (err) {
+                    function (error) {
                         alert('Ошибка');
                     },
                 );
@@ -68,7 +68,7 @@ function MapBlock(props) {
                     nearest.options.set('preset', 'islands#redStretchyIcon');
                     myMap.geoObjects.add(nearest);
                 },
-                function (err) {
+                function (error) {
                     alert('Ошибка');
                 },
             );
