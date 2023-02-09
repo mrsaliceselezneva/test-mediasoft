@@ -31,7 +31,7 @@
 
 Чтобы запустить проект надо:
 
--   кслонировать с [https://github.com/mrsaliceselezneva/test-mediasoft](https://github.com/mrsaliceselezneva/test-mediasoft) командой `git clone https://github.com/mrsaliceselezneva/test-mediasoft`
+-   склонировать с [https://github.com/mrsaliceselezneva/test-mediasoft](https://github.com/mrsaliceselezneva/test-mediasoft) командой `git clone https://github.com/mrsaliceselezneva/test-mediasoft`
 -   открыть папку с проектом в консоли
 -   ввести в консоль команду `npm install`
 
